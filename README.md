@@ -2,7 +2,6 @@
 
 
 This project computes Kaldi GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina, using a TDNN-F chain acoustic model with iVectors downloaded from Kaldi web.
-To take a look into the previous version (PyTorch-Kaldi-v0.1), [click here](https://bitbucket.org/mravanelli/pytorch-kaldi-v0.0/src/master/).
 
 If you use this code or database, please cite the following paper:
 
@@ -90,7 +89,7 @@ export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 7. Move the folder tdnn_1d_sp in kaldi/egs/epadb/0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp to kaldi/egs/epadb/exp/nnet3_cleaned
 
 ```
-mv tdnn_1d_sp/ ../../../exp/nnet3_cleaned
+mv tdnn_1d_sp/ ../../../exp/nnet3_cleaned 
 ```
 
 ## Run
