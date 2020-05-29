@@ -38,10 +38,11 @@ For the sake of simplicity we followed, when possible, the organization given by
 ## Database Overview
 For each speaker, the database contains:
 
-* Speech recordings: 64 short English phrases (some of them may have been removed because of quality problems)
-* Word level transcriptions: orthographic transcription and forced-aligned word boundaries provided by Montreal Forced Aligner.
-* Phoneme level transcriptions: ARPA-bet transcriptions provided by Montral Forced Aligner with manually corrected boundaries by the raters.
-* Manual annotations: phone level annotations in ARPA-bet and an ARPA-bet like extension to account for those sounds not present in the English inventory.
+* **Speech recordings**: 64 short English phrases (some of them may have been removed because of quality problems)
+* **Word level transcriptions**: orthographic transcription and forced-aligned word boundaries provided by Montreal Forced Aligner.
+* **Phoneme level transcriptions**: ARPA-bet transcriptions provided by Montral Forced Aligner with manually corrected boundaries by the raters.
+* **Manual annotations**: phone level annotations in ARPA-bet and an ARPA-bet like extension to account for those sounds not present in the English inventory.
+* **Reference transcriptions**: for each utterance, the set of all the correct pronunciations in ARPA-bet. This file is useful to compute labels. 
 
 For more information on the database, please go to the [documentation](https:) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
@@ -49,12 +50,15 @@ For more information on the database, please go to the [documentation](https:) o
 1. If not already done, download and install Kaldi (http://kaldi-asr.org/).
 As suggested during the installation, do not forget to add the path of the Kaldi binaries into $HOME/.bashrc
 
-2. Download Epa-DB from
+2. Download Epa-DB from (). The folder contains the subsample of 30 speakers, 15 male and 15 female, necessary to run this experiment. Each directory contains waveforms and transcripts. Put it under kaldi/egs/epadb
+
+3. Download Librispeech ASR model from https://kaldi-asr.org/models/m13 
+
 
 ## How to install
 To install this repository, do the following steps:
 
-1. Make sure all the recommendations in the “Prerequisites” sections are installed and are correctly working
+1. Make sure all the recommendations in the “Prerequisites” sections are installed, correctly working or complete.
 
 2. Clone the epadb repository:
 ```
@@ -84,13 +88,17 @@ export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 
 ```
 
-6. Download Librispeech ASR from https://kaldi-asr.org/models/m13 and uncompress it into kaldi/egs/epadb
+6. Open Librispeech ASR model in kaldi/egs/epadb
 
-7. Move the folder tdnn_1d_sp in kaldi/egs/epadb/0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp to kaldi/egs/epadb/exp/nnet3_cleaned
+7. Move the folder tdnn_1d_sp in kaldi/egs/epadb/0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp to kaldi/egs/epadb/exp/nnet3_cleaned. The following command should work:
 
 ```
 mv tdnn_1d_sp/ ../../../exp/nnet3_cleaned 
 ```
+
+8. Your directory should now look something like this:
+
+
 
 ## Run
 
