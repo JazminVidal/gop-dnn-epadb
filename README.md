@@ -96,14 +96,16 @@ export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 ```
 mv tdnn_1d_sp/ ../../../exp/nnet3_cleaned
 ```
+8. Uncompress data.zip folder 
 
-8. Move the lang_chain folder in data/lang_chain to kaldi/egs/epadb/0013_librispeech_v1/data/lang to kaldi/egs/epadb/data
+9. Move the lang_chain folder in data/lang_chain to kaldi/egs/epadb/0013_librispeech_v1/data/lang to kaldi/egs/epadb/data
 
 ```
 mv lang_chain ../../../data
 ```
 
-9. Your directory should now look something like this:
+
+10. Your directory should now look something like this:
 
 
 
