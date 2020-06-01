@@ -24,6 +24,7 @@ If you use this code or database, please cite the following paper:
 * [Prerequisites](#prerequisites)
 * [How to install](#how-to-install)
 * [How to run](#how-to-run)
+* [How to evaluate](#how-to-evaluate)
 * [References](#references)
 
 
@@ -42,7 +43,7 @@ For each speaker, the database contains:
 * **Word level transcriptions**: orthographic transcription and forced-aligned word boundaries provided by Montreal Forced Aligner.
 * **Phoneme level transcriptions**: ARPA-bet transcriptions provided by Montral Forced Aligner with manually corrected boundaries by the raters.
 * **Manual annotations**: phone level annotations in ARPA-bet and an ARPA-bet like extension to account for those sounds not present in the English inventory.
-* **Reference transcriptions**: for each utterance, the set of all the correct pronunciations in ARPA-bet. This file is useful to compute labels. 
+* **Reference transcriptions**: for each utterance, the set of all the correct pronunciations in ARPA-bet. This file is useful to compute labels.
 
 For more information on the database, please go to the [documentation](https:) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
@@ -52,7 +53,7 @@ As suggested during the installation, do not forget to add the path of the Kaldi
 
 2. Download Epa-DB from (). The folder contains the subsample of 30 speakers, 15 male and 15 female, necessary to run this experiment. Each directory contains waveforms and transcripts. Put it under kaldi/egs/epadb
 
-3. Download Librispeech ASR model from https://kaldi-asr.org/models/m13 
+3. Download Librispeech ASR model from https://kaldi-asr.org/models/m13
 
 
 ## How to install
@@ -93,20 +94,35 @@ export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 7. Move the folder tdnn_1d_sp in kaldi/egs/epadb/0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp to kaldi/egs/epadb/exp/nnet3_cleaned. The following command should work:
 
 ```
-mv tdnn_1d_sp/ ../../../exp/nnet3_cleaned 
+mv tdnn_1d_sp/ ../../../exp/nnet3_cleaned
 ```
 
-8. Your directory should now look something like this:
+8. Move the lang_chain folder in data/lang_chain to kaldi/egs/epadb/0013_librispeech_v1/data/lang to kaldi/egs/epadb/data
+
+```
+mv lang_chain ../../../data
+```
+
+9. Your directory should now look something like this:
 
 
 
-## Run
+## How to run
 
-4. Run prepare_data.sh to create wav.scp file, compute features and extract i-vectors:
+1. Run prepare_data.sh to create wav.scp file, compute features and extract i-vectors:
 
+```
 bash prepare_data.sh
+```
 
+2. Replace the run.sh file in kaldi/egs/gop/s5 with the one provided in the misc folder in this repository
 
-5. Replace the run.sh file in kaldi/egs/gop/s5 with the one provided in the misc folder in this repository
+3. Replace make_test_case.sh kaldi/egs/gop/s5/local with the one provided in the misc folder in this repository
 
-6. Replace make_test_case.sh kaldi/egs/gop/s5/local with the one provided in the misc folder in this repository
+4. Go to kaldi/egs/gop/s5 and run the run.sh script:
+
+```
+./run.sh
+```
+
+## How to evaluate
