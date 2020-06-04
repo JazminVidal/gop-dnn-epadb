@@ -1,0 +1,199 @@
+
+TEXT 1: Our nice red toy
+TRANSCRIPTION 1: AA R  N AY S  R EH D  T OY
+TRANSCRIPTION 1: AW R/ER  N AY S  R EH D  T OY
+
+TEXT 2: A cup of hot tea
+TRANSCRIPTION 2: AH0  K AH P  AH0/AH V  HH AA T/CH/0  T IY
+
+TEXT 4: My father is at home
+TRANSCRIPTION 4: M AY  F AA DH ER  IH Z  AH0/AE T  HH OW M
+
+TEXT 5: Try to sing and jump
+TRANSCRIPTION 5: T/CH R AY  T UH/AH0/UW  S IH NG  AH0/AE N D/0  JH AH M P
+
+TEXT 6: Who is Robin Hood?
+TRANSCRIPTION 6: HH UW  IH Z  R AA/AO B IH/AH N  HH UH D
+
+TEXT 7: Her little sister's teeth
+TRANSCRIPTION 7: HH ER  L IH T AH0/0 L  S IH S T ER Z  T IY TH
+
+TEXT 8: Turn the television off
+TRANSCRIPTION 8: T ER N  DH AH0  T EH/0 L AH0 V IH ZH AH0/0 N  AA/AO F
+
+TEXT 9: The sun heats my bed
+TRANSCRIPTION 9: DH AH/IY  S AH N  HH IY T S  M AY  B EH D
+
+TEXT 10: I think the ship will sink
+TRANSCRIPTION 10: AY  TH IH NG K  DH AH0  SH IH P  W IH/0/AH0 L  S IH NG K
+
+TEXT 11: The girl goes to the zoo
+TRANSCRIPTION 11: DH AH  G ER L  G OW Z  Th UH/UW  DH AX  Z UW
+
+TEXT 12: The cat is sitting outside
+TRANSCRIPTION 12: DH AH0/IY  K AE T  IH Z  S IH T IH NG  AW T S AY D
+
+TEXT 13: I had a headache last year
+TRANSCRIPTION 13: AY  HH AE D  AH0  HH EH D EY K  L AE S T/CH/0  Y IH R
+
+TEXT 14: My brother cheats at school
+TRANSCRIPTION 14: M AY  B R AH DH ER  CH IY T S  AH0/AE T  S K UW L
+
+TEXT 15: Coffee with sugar, please sir
+TRANSCRIPTION 15: K AA/AO F IY  W IH DH/TH  SH UH G ER  P L IY Z  S ER
+
+TEXT 18: Humans use a huge amount of water
+TRANSCRIPTION 18: HH/0 Y UW M AH/0 N Z  Y UW Z  AH0  HH/0 Y UW JH  AH0 M AW N T/0  AH0 V  W AA/AO T ER
+
+TEXT 19: My best friend speaks english and Spanish
+TRANSCRIPTION 19: M AY  B EH S T/0  F R EH N D  S P IY K S  IH NG G/0 L IH SH  AX/AE N D/0  S P AE N IH SH
+
+TEXT 20: They usually come home in January
+TRANSCRIPTION 20: DH EY  Y UW ZH UW/0 AH/AH0 L IY  K AH M  HH OW M  IH N  JH AE N Y UW EH R IY
+
+TEXT 21: I brush my teeth carefully in the morningspkr35_28
+TRANSCRIPTION 21: AY  B R AH SH  M AY  T IY TH  K EH R F AH0/UH L IY  IH N  DH AH0  M AA/AO R N IH NG
+
+TEXT 22: I have finished my homework
+TRANSCRIPTION 22: AY  HH AH0/AE V  F IH N IH SH T/0  M AY  HH OW M W ER K
+
+TEXT 23: I got lost on the way to school
+TRANSCRIPTION 23: AY  G AA/AO T  L AA/AO S T  AA/AO N  DH AH0  W EY  T UH/AH0/UW  S K UW L
+
+TEXT 24: Look at those farm animals
+TRANSCRIPTION 24: L UH K  AH0/AE T  DH OW Z  F AA R M  AE N IH M AH0/0 L Z
+
+TEXT 26: We argued about the menu
+TRANSCRIPTION 26: W IY  AA R G Y UW D  AH0 B AW T/0  DH AH0  M EH N Y UW
+
+TEXT 28: She thinks cars are great
+TRANSCRIPTION 28: SH IY  TH IH NG K S  K AA R/0 Z  ER 0  G R EY T
+TRANSCRIPTION 28: SH IY  TH IH NG K S  K AA R/0 Z  AH0/AA R  G R EY T
+
+TEXT 29: He threw something at you
+TRANSCRIPTION 29: HH IY  TH R UW  S AH M TH IH NG  AE T/CH  Y UW
+
+TEXT 30: The moon looks like cheese
+TRANSCRIPTION 30: DH AH/IY  M UW N  L UH K S  L AY K  CH IY Z
+
+TEXT 31: It's my turn to play music
+TRANSCRIPTION 31: IH T S  M AY  T/CH ER N  T UH/IH/UW  P L EY  M Y UW Z IH K
+
+TEXT 33: Don't speak too loud at the theater
+TRANSCRIPTION 33: D OW/AO/AA N T/0  S P IY K  T UH  L AW D  AH0 T  DH AH0  TH IY AH0 T ER
+
+TEXT 34: The best lemon iced tea recipe
+TRANSCRIPTION 34: DH AH0  B EH S T/0  L EH M AH0/0 N  AY S T/0  T IY  R EH S AH0/0 P IY
+
+TEXT 35: They said so on the news
+TRANSCRIPTION 35: DH EY  S EH D  S OW  AA/AO N  DH AH0/IY  N Y/0 UW Z
+
+TEXT 36: Be careful with boiling water
+TRANSCRIPTION 36: B IY  K EH R F AH0/0 L  W IH DH/TH  B OY L IH NG  W AA/AO T ER
+
+TEXT 37: I learned to tie my shoes
+TRANSCRIPTION 37: AY  L ER N IH D  T UH/UW  T AY  M AY  SH UW Z
+TRANSCRIPTION 37: AY  L ER N T/0  T UH/UW  T AY  M AY  SH UW Z
+
+TEXT 38: I keep a private diary
+TRANSCRIPTION 38: AY  K IY P  AH0  P R AY V AH0 T  D AY ER/R IY
+
+TEXT 40: The garden is pretty
+TRANSCRIPTION 40: DH AH0/IY  G AA R D AH0/0 N  IH Z  P R IH T IY
+
+TEXT 42: Owls have big eyes
+TRANSCRIPTION 42: AW L Z  HH AE V  B IH G  AY Z
+
+TEXT 43: We saw an old film
+TRANSCRIPTION 43: W IY  S AA/AO  AH0 N  OW L D  F IH L M
+
+TEXT 44: I'm in the mood for a walk
+TRANSCRIPTION 44: AY/IH M  IH N  DH AH0  M UW D  F AA/AO/0 R  AH0  W AA/AO K
+
+TEXT 45: Put your coat on
+TRANSCRIPTION 45: P UH T/CH/0  Y AA/AO/UH R  K OW T  AA/AO N
+
+TEXT 46: I don't like rainy days
+TRANSCRIPTION 46: AY  D OW/AO/AA N T/0  L AY K  R EY N IY  D EY Z
+
+TEXT 50: My family will visit Argentina in July
+TRANSCRIPTION 50: M AY  F AE M IH/AH0/0 L IY  W IH/0 L  V IH Z IH T  AA R JH AH0 N T IH N AH  IH N  JH UW L AY
+
+TEXT 51: We ran out of shampoo
+TRANSCRIPTION 51: W IY  R AE N  AW T  AH0/AH V  SH AE M P UW
+
+TEXT 52: Let's play soccer
+TRANSCRIPTION 52: L EH T S  P L EY   S AA/AO K ER
+
+TEXT 53: Mom sent me a message
+TRANSCRIPTION 53: M AH M  S EH N T/0  M IY  AH0  M EH S AH0/IH JH
+
+TEXT 54: She's a liar
+TRANSCRIPTION 54: SH IY Z  AH0/EY  L AY ER
+
+TEXT 55: The boy eats at the airport
+TRANSCRIPTION 55: DH AH0/IY  B OY  IY T S  AH0/AE T  DH IY/AH0  EH R P AA/AO R T
+
+TEXT 56: You called a cab
+TRANSCRIPTION 56: Y UW  K AA/AO L D  AH0  K AE B
+
+TEXT 57: Don't forget your shovel
+TRANSCRIPTION 57: D OW/AO/AA N T/0  F AO R G EH T/CH  Y AA/AO R  SH AH V AH0 L
+TRANSCRIPTION 57: D OW/AO/AA N T/0  F ER/R 0 G EH T/CH  Y AA/AO R  SH AH V AH0 L
+
+
+TEXT 58: The lower floor of the royal palace
+TRANSCRIPTION 58: DH AH0/IY  L OW ER  F L AA/AO R  AH0/AH V  DH AH0  R OY AH0 L  P AE L AH0 S
+
+TEXT 59: Against all odds
+TRANSCRIPTION 59: AH0 G EH/EY N S T  AA/AO L  AA/AO D Z
+
+TEXT 60: The child has lit the fire
+TRANSCRIPTION 60: DH AH0/IY  CH AY L D  HH AH0/AE Z  L IH T  DH AH0  F AY ER
+
+TEXT 61: The power went off for an hour
+TRANSCRIPTION 61: DH AH0/IY  P AW ER  W EH N T/0  AA/AO F  F AA/AO/0 R  AH0 N  AW ER/R
+
+TEXT 62: I get your point
+TRANSCRIPTION 62: AY  G EH T/CH  Y AA/AO R  P OY N T
+
+TEXT 63: Two player games
+TRANSCRIPTION 63: T UH  P L EY ER  G EY M Z
+
+TEXT 64: The pleasure of seeing a deer
+TRANSCRIPTION 64: DH AH0/IY  P L EH ZH ER  AH0/AH V  S IY IH NG  AH0  D IH ER/R
+
+TEXT 65: They measured a volcanic eruption
+TRANSCRIPTION 65: DH EY  M EH ZH ER D  AH0  V AA L K AE N IH K  IH R AH P SH AH0/0 N
+
+TEXT 66: The party is in November
+TRANSCRIPTION 66: DH AH0/IY  P AA R T IY  IH Z  IH N/0  N OW V EH M B ER
+
+TEXT 67: I knew a very tall man
+TRANSCRIPTION 67: AY  N Y/0 UW  AH0  V EH R IY  T AA/AO L  M AE N
+
+TEXT 68: We met at the choir
+TRANSCRIPTION 68: W IY  M EH T  AH0/AE T  DH AH0/IY  K W AY ER
+
+TEXT 69: Wash the dishes after lunch
+TRANSCRIPTION 69: W AA SH  DH AH0/IY  D IH SH IH Z  AE/AH0 F T ER  L AH N CH
+
+TEXT 70: Free tours around Europe
+TRANSCRIPTION 70: F R IY  T UH/AO R Z  AA R AW N D/0  Y UH R AH0/AO P
+TRANSCRIPTION 70: F R IY  T UH/AO R Z  ER 0 AW N D/0  Y UH R AH0/AO P
+
+TEXT 71: Much more olive oil for the boy
+TRANSCRIPTION 71: M AH CH  M AA/AO R  AA/AO L IH/AH0 V  OY L  F AA/AO/0 R  DH AH0  B OY
+
+TEXT 72: The teacher went to the garage
+TRANSCRIPTION 72: DH AH0  T IY CH ER  W EH N T/0  T UH/UW  DH AH0/IY  G ER AA ZH
+
+TEXT 73: I'm sure it's okay
+TRANSCRIPTION 73: AY M  SH UH R  IH T S  OW K EY
+
+TEXT 74: That's pure luxury
+TRANSCRIPTION 74: DH AE T S  P Y UH R  L AH G ZH ER IY
+
+TEXT 75: A sandwich with mayonnaise
+TRANSCRIPTION 75: AH0/EY  S AE N D W IH CH  W IH DH/TH  M EY AH0 N EY Z
+TRANSCRIPTION 75: AH0/EY  S AE M 0 W IH CH  W IH DH/TH  M  EY AH0 N EY Z

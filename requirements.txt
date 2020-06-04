@@ -1,0 +1,8 @@
+scipy
+tqdm
+numpy
+joblib
+pandas
+ipython
+librosa
+TextGrid
