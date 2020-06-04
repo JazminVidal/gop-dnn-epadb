@@ -55,6 +55,8 @@ As suggested during the installation, do not forget to add the path of the Kaldi
 
 3. Download Librispeech ASR model from https://kaldi-asr.org/models/m13
 
+4. https://github.com/Legisign/Praat-textgrids
+
 
 ## How to install
 To install this repository, do the following steps:
@@ -128,6 +130,15 @@ bash prepare_data.sh
 ```
 
 ## How to evaluate
+
+1. Move the gop.1.txt file resulting from running kaldi/gop recipe for Epa-DB to kaldi/egs/epadb/evaluation 
+
+2. Run the evaluation script:
+
+```
+./go.run.generate_data_for_eval.sh
+```
+3. You should expect to obtain a pickle file with all the information necessary to compure ROC, AUC, and EERs. 
 
 ## References
 
