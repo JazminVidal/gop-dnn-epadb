@@ -110,14 +110,13 @@ mv tdnn_1d_sp/ ../../../exp/nnet3_cleaned
 mv lang_chain ../../../data
 ```
 
-
-11. Your directory should now look something like this:
+12. Your directory should now look something like this:
 
 
 
 ## How to run
 
-1. Run prepare_data.sh to create wav.scp file, compute features and extract i-vectors:
+1. Run prepare_data.sh to create wav.scp file, compute features and extract i-vectors. The script will generate a folder name test_epadb_hires in the data directory:
 
 ```
 bash prepare_data.sh
@@ -127,7 +126,11 @@ bash prepare_data.sh
 
 3. Replace make_test_case.sh kaldi/egs/gop/s5/local with the one provided in the misc folder in this repository
 
-4. Go to kaldi/egs/gop/s5 and run the run.sh script:
+4. Move the folder test_epadb_hires to kaldi/egs/gop/s5/data and rename it as test_epadb
+
+5. Change the run.sh file so that the paths needed match your own paths
+
+6. Go to kaldi/egs/gop/s5 and run the the run.sh script:
 
 ```
 ./run.sh
