@@ -61,15 +61,20 @@ As suggested during the installation, do not forget to add the path of the Kaldi
 ## How to install
 To install this repository, do the following steps:
 
-1. Make sure all the recommendations in the “Prerequisites” sections are installed, correctly working or complete.
+1. Make sure all the recommendations in the “Prerequisites” sections are installed, correctly working and complete.
 
-2. Clone the epadb repository:
+2. Check the requirements.txt file
+```
+pip install -r requirements.txt
+```
+
+3. Clone the epadb repository:
 ```
 git clone https://github.com/JazminVidal/epadb.git
 ```
-3. Move epadb to kaldi/egs
+4. Move epadb to kaldi/egs
 
-4. Enter the new directory epadb in kaldi/egs and make soft links to the directories steps, utils, and src
+5. Enter the new directory epadb in kaldi/egs and make soft links to the directories steps, utils, and src
 in the wsj directory in Kaldi to access necessary scripts:
 
 ```
@@ -78,10 +83,9 @@ cd epdab
 ln -s ../wsj/s5/steps .
 ln -s ../wsj/s5/utils .
 ln -s ../../src .
-
 ```
 
-5. Change the KALDI_ROOT in the path.sh file to your KALDI-TRUNK:
+6. Change the KALDI_ROOT in the path.sh file to your KALDI-TRUNK:
 
 ```
 # Change the path line in path.sh from:
@@ -91,23 +95,23 @@ export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 
 ```
 
-6. Open Librispeech ASR model in kaldi/egs/epadb
+7. Open Librispeech ASR model in kaldi/egs/epadb
 
-7. Move the folder tdnn_1d_sp in kaldi/egs/epadb/0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp to kaldi/egs/epadb/exp/nnet3_cleaned. The following command should work:
+8. Move the folder tdnn_1d_sp in kaldi/egs/epadb/0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp to kaldi/egs/epadb/exp/nnet3_cleaned. The following command should work:
 
 ```
 mv tdnn_1d_sp/ ../../../exp/nnet3_cleaned
 ```
-8. Uncompress data.zip folder 
+9. Uncompress data.zip folder 
 
-9. Move the lang_chain folder in data/lang_chain to kaldi/egs/epadb/0013_librispeech_v1/data/lang to kaldi/egs/epadb/data
+10. Move the lang_chain folder in data/lang_chain to kaldi/egs/epadb/0013_librispeech_v1/data/lang to kaldi/egs/epadb/data
 
 ```
 mv lang_chain ../../../data
 ```
 
 
-10. Your directory should now look something like this:
+11. Your directory should now look something like this:
 
 
 
