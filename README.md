@@ -48,75 +48,45 @@ For each speaker, the database contains:
 For more information on the database, please go to the [documentation](https:) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
 ## Prerequisites
-1. If not already done, download and install Kaldi (http://kaldi-asr.org/).
-As suggested during the installation, do not forget to add the path of the Kaldi binaries into $HOME/.bashrc
+1. Kaldi: (http://kaldi-asr.org/).
 
-2. Download Epa-DB from (). The folder contains the subsample of 30 speakers, 15 male and 15 female, necessary to run this experiment. Each directory contains waveforms and transcripts. Put it under kaldi/egs/epadb
+2. Epa-DB: (). You will be using in this experiment a subsample of 30 speakers, 15 male and 15 female.
 
-3. Download Librispeech ASR model from https://kaldi-asr.org/models/m13
+3. Librispeech ASR model: https://kaldi-asr.org/models/m13
 
-4. https://github.com/Legisign/Praat-textgrids
+4. TextGrid managing library: https://github.com/Legisign/Praat-textgrids
 
 
 ## How to install
 To install this repository, do the following steps:
 
-1. Make sure all the recommendations in the “Prerequisites” sections are installed, correctly working and complete.
+1. If not already done, download and install Kaldi. As suggested during the installation, do not forget to add the path of the Kaldi binaries into $HOME/.bashrc
 
-2. Check the requirements.txt file
+3. Clone the epadb repository into kaldi/egs/:
+```
+git clone https://github.com/JazminVidal/epadb.git
+```
+
+3. Check the requirements.txt file:
 ```
 pip install -r requirements.txt
 ```
 
-3. Clone the epadb repository:
-```
-git clone https://github.com/JazminVidal/epadb.git
-```
-4. Move epadb to kaldi/egs
-
-5. Enter the new directory epadb in kaldi/egs and make soft links to the directories steps, utils, and src
-in the wsj directory in Kaldi to access necessary scripts:
-
-```
-cd epdab
-
-ln -s ../wsj/s5/steps .
-ln -s ../wsj/s5/utils .
-ln -s ../../src .
-```
-
-6. Change the KALDI_ROOT in the path.sh file to your KALDI-TRUNK:
-
+4. Change the KALDI_ROOT in the path.sh file to your KALDI-TRUNK:
 ```
 # Change the path line in path.sh from:
 export KALDI_ROOT='pwd'/../../..
 # to:
 export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
-
 ```
 
-7. Open Librispeech ASR model in kaldi/egs/epadb
-
-8. Move the folder tdnn_1d_sp in kaldi/egs/epadb/0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp to kaldi/egs/epadb/exp/nnet3_cleaned. The following command should work:
-
-```
-mv tdnn_1d_sp/ ../../../exp/nnet3_cleaned
-```
-9. Uncompress data.zip folder 
-
-10. Move the lang_chain folder in data/lang_chain to kaldi/egs/epadb/0013_librispeech_v1/data/lang to kaldi/egs/epadb/data
-
-```
-mv lang_chain ../../../data
-```
-
-12. Your directory should now look something like this:
+5. Your epadb directory inside Kaldi should now look something like this:
 
 
 
 ## How to run
 
-1. Run prepare_data.sh to create wav.scp file, compute features and extract i-vectors. The script will generate a folder name test_epadb_hires in the data directory:
+1. Run data_preparation.sh to create the necessary directories and files. This script create soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, compute mfcc features and extracts i-vectors.  
 
 ```
 bash prepare_data.sh
@@ -126,9 +96,7 @@ bash prepare_data.sh
 
 3. Replace make_test_case.sh kaldi/egs/gop/s5/local with the one provided in the misc folder in this repository
 
-4. Move the folder test_epadb_hires to kaldi/egs/gop/s5/data and rename it as test_epadb
-
-5. Change the run.sh file so that the paths needed match your own paths
+4. Change the run.sh file so that the paths needed match your own paths
 
 6. Go to kaldi/egs/gop/s5 and run the the run.sh script:
 
