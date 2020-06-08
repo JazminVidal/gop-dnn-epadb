@@ -86,17 +86,19 @@ export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 
 ## How to run
 
-1. Run data_preparation.sh to create the necessary directories and files. This script create soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, compute mfcc features and extracts i-vectors.  
+1. Download epa-db corpus folder into kaldi/egs/epadb.
+
+2. Run data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's and extracts i-vectors.  
 
 ```
-bash prepare_data.sh
+./data_preparation.sh
 ```
 
-2. Replace the run.sh file in kaldi/egs/gop/s5 with the one provided in the misc folder in this repository
+3. After running data_preparation.sh, replace the run.sh file in kaldi/egs/gop/s5 with the one provided in the misc folder in this repository
 
-3. Replace make_test_case.sh kaldi/egs/gop/s5/local with the one provided in the misc folder in this repository
+4. Replace make_test_case.sh kaldi/egs/gop/s5/local with the one provided in the misc folder. 
 
-4. Change the run.sh file so that the paths needed match your own paths
+5. Change the path.sh file so that the paths needed match your own paths.
 
 6. Go to kaldi/egs/gop/s5 and run the the run.sh script:
 
@@ -114,6 +116,7 @@ bash prepare_data.sh
 ./go.run.generate_data_for_eval.sh
 ```
 3. You should expect to obtain a pickle file with all the information necessary to compure ROC, AUC, and EERs. 
+
 
 ## References
 
