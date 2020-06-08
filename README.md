@@ -50,11 +50,11 @@ For more information on the database, please go to the [documentation](https:) o
 ## Prerequisites
 1. Kaldi [link](http://kaldi-asr.org/).
 
-2. Epa-DB [link](https://drive.google.com/drive/folders/1STTt_mhXtjAHEboqpAmWECTa-DyvY_KJ?usp=sharing). You will be using in this experiment a subsample of 30 speakers, 15 male and 15 female.
+2. Epa-DB [database](https://drive.google.com/drive/folders/1STTt_mhXtjAHEboqpAmWECTa-DyvY_KJ?usp=sharing). You will be using in this experiment a subsample of 30 speakers, 15 male and 15 female.
 
-3. Librispeech ASR model [link] https://kaldi-asr.org/models/m13
+3. Librispeech ASR model [TDNN-F] (https://kaldi-asr.org/models/m13)
 
-4. TextGrid managing library [link] https://github.com/Legisign/Praat-textgrids
+4. TextGrid managing [library] (https://github.com/Legisign/Praat-textgrids)
 
 
 ## How to install
