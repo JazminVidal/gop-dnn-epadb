@@ -14,8 +14,9 @@
 # You might not want to do this for interactive shells.
 set -e
 
-# Before running this recipe, you have to run the librispeech recipe firstly.
+# Before running this recipe, you have to run the epadb recipe firstly.
 # This script assumes the following paths exist.
+
 epadb_eg=/path/where/your/kaldi/egs/epadb/is
 model=$epadb_eg/exp/nnet3_cleaned/tdnn_1d_sp
 ivector=$epadb_eg/exp/nnet3_cleaned/ivectors_test_epadb_hires
