@@ -94,17 +94,20 @@ export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 ./data_preparation.sh
 ```
 
-3. After running data_preparation.sh, replace the run.sh file in kaldi/egs/gop/s5 with the one provided in the misc folder in this repository
+3. After running data_preparation.sh, go to kaldi/egs/gop/s5
 
-4. Replace make_test_case.sh kaldi/egs/gop/s5/local with the one provided in the misc folder. 
+4. Replace make_test_case.sh in kaldi/egs/gop/s5/local and run.sh in kaldi/egs/gop/s5 with the ones provided in the misc folder in this repository. 
 
-5. Change the path.sh file so that the paths needed match your own paths.
+5. Change the path.sh in kaldi/egs/gop/s5 so that the paths needed match your own paths.
 
-6. Go to kaldi/egs/gop/s5 and run the the run.sh script:
+6. Run the run.sh script:
 
 ```
 ./run.sh
 ```
+
+7. You will find the reuslts in the exp folder. 
+
 
 ## How to evaluate
 
