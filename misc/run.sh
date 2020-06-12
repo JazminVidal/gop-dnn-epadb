@@ -17,11 +17,11 @@ set -e
 # Before running this recipe, you have to run the epadb recipe firstly.
 # This script assumes the following paths exist.
 
-epadb_eg=/path/where/your/kaldi/egs/epadb/is
+epadb_eg=../../gop-dnn-epadb
 model=$epadb_eg/exp/nnet3_cleaned/tdnn_1d_sp
-ivector=$epadb_eg/exp/nnet3_cleaned/ivectors_test_epadb_hires
+ivector=$epadb_eg/exp/nnet3_cleaned/ivectors_test_epa_hires
 lang=$epadb_eg/data/lang_chain
-test_data=$epadb_eg/data/test_epadb_hires
+test_data=$epadb_eg/data/test_epa_hires
 
 for d in $model $ivector $lang $test_data; do
   [ ! -d $d ] && echo "$0: no such path $d" && exit 1;
@@ -29,7 +29,7 @@ done
 
 # Global configurations
 stage=0
-nj=4
+nj=1
 
 data=test_epadb
 dir=exp/gop_$data
