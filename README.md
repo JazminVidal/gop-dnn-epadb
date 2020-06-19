@@ -1,7 +1,6 @@
 # # Kaldi GOP-DNN on Epa-DB
 
-
-This project computes Kaldi GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina, using a TDNN-F chain acoustic model with iVectors downloaded from Kaldi web.
+This repository has the tools to run a Kaldi-based GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina. It uses a TDNN-F chain model which is downloaded from the Kaldi website.
 
 If you use this code or database, please cite the following paper:
 
@@ -31,10 +30,12 @@ If you use this code or database, please cite the following paper:
 ## Introduction
 Epa-DB, is a database of non-native English speech by argentinian speakers of Spanish. It is intended for research on mispronunciation detection
 and development of pronunciation assessment systems.
-The database includes recordings from 50 non-native speakers of English, 25 male and 25 female, whose first language (L1) is Spanish from Argentina (mainly Rio de la Plata).
+The database includes recordings from 50 non-native speakers of English, 25 male and 25 female, whose first language (L1) is Spanish from Argentina (mainly of the Rio de la Plata dialect).
 Each speaker recorded 64 short Englsh phrases phonetically balanced and specifically designed to globally contain all the sounds difficult to pronounce for the target population.
 All recordings were forced aligned using the Montreal Forced Aligner and annotated at phone level by two expert raters.
 For the sake of simplicity we followed, when possible, the organization given by the L2-ARCTIC corpus.
+
+This toolkit is meant to facilitate experimentation with this database by allowing user to run a state-of-the-art baseline system on it.
 
 ## Database Overview
 For each speaker, the database contains:
@@ -45,44 +46,35 @@ For each speaker, the database contains:
 * **Manual annotations**: phone level annotations in ARPA-bet and an ARPA-bet like extension to account for those sounds not present in the English inventory.
 * **Reference transcriptions**: for each utterance, the set of all the correct pronunciations in ARPA-bet. This file is useful to compute labels.
 
-For more information on the database, please go to the [documentation](https:) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
+For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
+
+If you are only looking for the EpaDB corpus, you can download it from here: https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing
 
 ## Prerequisites
-1. Kaldi [link](http://kaldi-asr.org/).
+1. Kaldi [link](http://kaldi-asr.org/). As suggested during the installation, do not forget to add the path of the Kaldi binaries into $HOME/.bashrc
 
-2. Epa-DB [database](https://drive.google.com/drive/folders/1STTt_mhXtjAHEboqpAmWECTa-DyvY_KJ?usp=sharing). You will be using in this experiment a subsample of 30 speakers, 15 male and 15 female.
+2. TextGrid managing [library] (https://github.com/Legisign/Praat-textgrids)
 
-3. Librispeech ASR model [TDNN-F] (https://kaldi-asr.org/models/m13)
-
-4. TextGrid managing [library] (https://github.com/Legisign/Praat-textgrids)
-
+3. The EpaDB corpus [link] (https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing). In this example you will be using a subsample of 30 speakers, 15 male and 15 female, which were the ones used in the experiments in the recent [paper] (....).
 
 ## How to install
 To install this repository, do the following steps:
 
-1. If not already done, download and install Kaldi. As suggested during the installation, do not forget to add the path of the Kaldi binaries into $HOME/.bashrc
-
-3. Clone the epadb repository into kaldi/egs/:
+1. Clone this repository into kaldi/egs/:
 ```
-git clone https://github.com/JazminVidal/epadb.git
+git clone https://github.com/JazminVidal/gop-dnn-epadb.git
 ```
 
-3. Check the requirements.txt file:
+2. Check the requirements.txt file:
 ```
 pip install -r requirements.txt
 ```
 
-4. Change the KALDI_ROOT in the path.sh file to your KALDI-TRUNK:
+3. Set the following lines in the file gop-dnn-epadb/path.sh
 ```
-# Change the path line in path.sh from:
-export KALDI_ROOT='pwd'/../../..
-# to:
 export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
+export EPADB_ROOT=path/to/where/epadb/is
 ```
-
-5. Your epadb directory inside Kaldi should now look something like this:
-
-
 
 ## How to run
 

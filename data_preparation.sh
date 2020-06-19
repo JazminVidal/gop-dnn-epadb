@@ -4,10 +4,11 @@ set -x
 
 echo "preparing epadb directories"
 
-ln -s ../wsj/s5/steps .
-ln -s ../wsj/s5/utils .
-ln -s ../../src .
+. path.sh
 
+ln -s $KALDI_ROOT/egs/wsj/s5/steps .
+ln -s $KALDI_ROOT/egs/wsj/s5/utils .
+ln -s $KALDI_ROOT/src .
 
 # The script takes the corpus directory with .wav and .lab files and prepares data for gop-dnn computation with kaldi.
 # You should expect to have wav.scp, utt2spk, spk2utt and text file in data/test folder.
@@ -72,3 +73,4 @@ mkdir $gop_dir/exp
 mkdir $gop_dir/data
 cp -r data/test_epa_hires $gop_dir/data/
 mv $gop_dir/data/test_epa_hires $gop_dir/data/test_epa
+

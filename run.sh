@@ -38,6 +38,8 @@ dir=exp/gop_$data
 . ./path.sh
 . parse_options.sh
 
+ln -s $KALDI_ROOT/egs/gop/local
+
 #This stage is only necessary if you want to test with a data subset, see make_testcase.sh
 #if [ $stage -le 0 ]; then
 #  # Prepare test data
