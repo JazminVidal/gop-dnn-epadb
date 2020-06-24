@@ -48,19 +48,19 @@ For each speaker, the database contains:
 
 For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
-If you are only looking for the EpaDB corpus, you can download it from here: https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing
+If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing)
 
 ## Prerequisites
 1. Kaldi [link](http://kaldi-asr.org/). As suggested during the installation, do not forget to add the path of the Kaldi binaries into $HOME/.bashrc
 
 2. TextGrid managing [library] (https://github.com/Legisign/Praat-textgrids)
 
-3. The EpaDB corpus [link] (https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing). In this example you will be using a subsample of 30 speakers, 15 male and 15 female, which were the ones used in the experiments in the recent [paper] (....).
+3. The EpaDB database [link] (https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing). 
 
 ## How to install
 To install this repository, do the following steps:
 
-1. Clone this repository into kaldi/egs/:
+1. Clone this repository:
 ```
 git clone https://github.com/JazminVidal/gop-dnn-epadb.git
 ```
@@ -70,7 +70,7 @@ git clone https://github.com/JazminVidal/gop-dnn-epadb.git
 pip install -r requirements.txt
 ```
 
-3. Set the following lines in the file gop-dnn-epadb/path.sh
+3. Set the following lines in the file gop-dnn-epadb/path.sh:
 ```
 export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 export EPADB_ROOT=path/to/where/epadb/is
@@ -78,19 +78,15 @@ export EPADB_ROOT=path/to/where/epadb/is
 
 ## How to run
 
-1. Download epa-db corpus folder into kaldi/egs/epadb.
-
-2. Run data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's and extracts i-vectors.  
+1. Run data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's and extracts i-vectors.  
 
 ```
 ./data_preparation.sh
 ```
 
-3. After running data_preparation.sh, go to kaldi/egs/gop/s5
+2. After running data_preparation.sh, go to kaldi/egs/gop/s5
 
-4. Replace make_test_case.sh in kaldi/egs/gop/s5/local and run.sh in kaldi/egs/gop/s5 with the ones provided in the misc folder in this repository. 
-
-5. Change the path.sh in kaldi/egs/gop/s5 so that the paths needed match your own paths.
+3. Replace make_test_case.sh in kaldi/egs/gop/s5/local and run.sh in kaldi/egs/gop/s5 with the ones provided in the misc folder in this repository. 
 
 6. Run the run.sh script:
 
