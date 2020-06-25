@@ -17,6 +17,8 @@ set -e
 # Before running this recipe, you have to run the epadb recipe firstly.
 # This script assumes the following paths exist.
 
+#Aca hay que sourcear el path.sh y setearle los paths de epadb_eg, model, ivector, etc. de forma absoluta
+
 epadb_eg=../../gop-dnn-epadb
 model=$epadb_eg/exp/nnet3_cleaned/tdnn_1d_sp
 ivector=$epadb_eg/exp/nnet3_cleaned/ivectors_test_epa_hires
