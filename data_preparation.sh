@@ -1,10 +1,10 @@
 #!/bin/sh
 
-set -x
+#set -x
 
 echo "preparing epadb directories"
 
-. path.sh
+. ./path.sh
 
 ln -s $KALDI_ROOT/egs/wsj/s5/steps .
 ln -s $KALDI_ROOT/egs/wsj/s5/utils .
@@ -15,6 +15,13 @@ ln -s $KALDI_ROOT/src .
 
 # Aca la carpeta data es una carpeta temporal que apunta a $EPADB_ROOT y saca los wavs y los labs de cada speaker y los ordena como estaba ordenada
 # corpus.
+[ ! -d corpus ] && mkdir corpus
+for d in $EPADB_ROOT/*/; do
+    [ ! -d "corpus/$(basename $d)" ] && mkdir "corpus/$(basename $d)"
+    for f in $d/waveforms/*.wav $d/transcriptions/*.lab; do
+	ln -sf $f "corpus/$(basename $d)"
+    done
+done
 
 data='corpus'
 dir='data/test_epa'
