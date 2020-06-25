@@ -10,8 +10,11 @@ ln -s $KALDI_ROOT/egs/wsj/s5/steps .
 ln -s $KALDI_ROOT/egs/wsj/s5/utils .
 ln -s $KALDI_ROOT/src .
 
-# The script takes the corpus directory with .wav and .lab files and prepares data for gop-dnn computation with kaldi.
-# You should expect to have wav.scp, utt2spk, spk2utt and text file in data/test folder.
+# The script takes epadb waveforms and transcriptions and creates a temporal directory with .wav and .lab files to extract features.
+# In the end you should expect to have wav.scp, utt2spk, spk2utt and text file in data/test folder.
+
+# Aca la carpeta data es una carpeta temporal que apunta a $EPADB_ROOT y saca los wavs y los labs de cada speaker y los ordena como estaba ordenada
+# corpus.
 
 data='corpus'
 dir='data/test_epa'
@@ -68,9 +71,9 @@ echo "Finish data preparation and feature extraction!"
 
 #echo "prepareing GOP directories" # Quizas esta parte deberia estar en el run.sh
 
+# Aca hay que ponerle el path absoluto para que lo mande a dobde la persona tenga KALDI_ROOT segun path.sh
 gop_dir='../gop/s5'
 mkdir $gop_dir/exp
 mkdir $gop_dir/data
 cp -r data/test_epa_hires $gop_dir/data/
 mv $gop_dir/data/test_epa_hires $gop_dir/data/test_epa
-
