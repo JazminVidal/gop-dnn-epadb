@@ -55,7 +55,7 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 2. TextGrid managing [library] (https://github.com/Legisign/Praat-textgrids)
 
-3. The EpaDB database [link] (https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing). 
+3. The EpaDB database [link] (https://drive.google.com/drive/folders/1eeWwhz--phRzk1vvGURHLvN0CzhbQeO6?usp=sharing). 
 
 ## How to install
 To install this repository, do the following steps:
