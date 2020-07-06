@@ -1,4 +1,4 @@
-### Kaldi GOP-DNN on Epa-DB
+# Kaldi GOP-DNN on Epa-DB
 
 This repository has the tools to run a Kaldi-based GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina. It uses a TDNN-F chain model which is downloaded from the Kaldi website.
 
