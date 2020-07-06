@@ -41,7 +41,7 @@ This toolkit is meant to facilitate experimentation with this database by allowi
 For each speaker, the database contains:
 
 * **Speech recordings**: 64 short English phrases (some of them may have been removed because of quality problems)
-* **Phoneme level transcriptions**: ARPA-bet transcriptions provided by Montral Forced Aligner used as reference by the annotators.
+* **Word and phoneme level transcriptions**: ARPA-bet transcriptions provided by Montral Forced Aligner used as reference by the annotators.
 * **Manual annotations**: phone level annotations in ARPA-bet and an ARPA-bet like extension to account for those sounds not present in the English inventory.
 * **Reference transcriptions**: for each utterance, the set of all the correct pronunciations in ARPA-bet. This file is useful to compute labels.
 
