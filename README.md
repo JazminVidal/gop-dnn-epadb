@@ -41,7 +41,6 @@ For the sake of simplicity we followed, when possible, the organization given by
 For each speaker, the database contains:
 
 * **Speech recordings**: 64 short English phrases (some of them may have been removed because of quality problems)
-* **Word level transcriptions**: orthographic transcriptions.
 * **Word and phoneme level reference transcriptions**: Reference word and phoneme transcriptions in ARPA-bet obtained using the Montreal Forced Aligner. Boundaries were manually corrected by the raters.
 * **Phoneme level manual transcriptions**: Phoneme level annotations of what the subject actually pronounced in ARPA-bet and an ARPA-bet like extension to account for those sounds not present in the English inventory.
 * **Reference transcriptions**: for each utterance, the set of all the correct pronunciations in ARPA-bet. This file is useful to compute labels.
