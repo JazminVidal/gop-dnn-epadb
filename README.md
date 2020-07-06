@@ -42,20 +42,21 @@ For each speaker, the database contains:
 
 * **Speech recordings**: 64 short English phrases (some of them may have been removed because of quality problems)
 * **Word level transcriptions**: orthographic transcriptions.
-* **Phoneme level reference transcriptions**: Reference ARPA-bet transcriptions with manually corrected boundaries by the raters.
+* **Word and phoneme level reference transcriptions**: Reference word and phoneme transcriptions in ARPA-bet obtained using the Montreal Forced Aligner. Boundaries were manually corrected by the raters.
 * **Phoneme level manual transcriptions**: Phoneme level annotations of what the subject actually pronounced in ARPA-bet and an ARPA-bet like extension to account for those sounds not present in the English inventory.
 * **Reference transcriptions**: for each utterance, the set of all the correct pronunciations in ARPA-bet. This file is useful to compute labels.
 
-For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html).
+For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1lYQwehQ28vvayv1GABASIlMhiSTuHnU9/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
-If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/1G02YYSlCRC5dsWRx4HfgIMHuUmqqzTqV/view?usp=sharing).
+If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/1eeWwhz--phRzk1vvGURHLvN0CzhbQeO6?usp=sharing1eeWwhz--phRzk1vvGURHLvN0CzhbQeO6?usp=sharing).
 
 ## Prerequisites
-1. [Kaldi](http://kaldi-asr.org/). As suggested during the installation, do not forget to add the path of the Kaldi binaries into $HOME/.bashrc
 
-2. [TextGrid managing library] (https://github.com/Legisign/Praat-textgrids)
+1. [Kaldi](http://kaldi-asr.org/) installed.
 
-3. [The EpaDB database] (https://drive.google.com/drive/folders/1eeWwhz--phRzk1vvGURHLvN0CzhbQeO6?usp=sharing). 
+2. [TextGrid managing library] (https://github.com/Legisign/Praat-textgrids) cloned.
+
+3. [The EpaDB database] (https://drive.google.com/drive/folders/1eeWwhz--phRzk1vvGURHLvN0CzhbQeO6?usp=sharing) downloaded. 
 
 ## How to install
 To install this repository, do the following steps:
