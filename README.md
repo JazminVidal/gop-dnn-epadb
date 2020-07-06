@@ -47,15 +47,15 @@ For each speaker, the database contains:
 
 For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1lYQwehQ28vvayv1GABASIlMhiSTuHnU9/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
-If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/1eeWwhz--phRzk1vvGURHLvN0CzhbQeO6?usp=sharing1eeWwhz--phRzk1vvGURHLvN0CzhbQeO6?usp=sharing).
+If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/drive/folders/1eeWwhz--phRzk1vvGURHLvN0CzhbQeO6?usp=sharing).
 
 ## Prerequisites
 
 1. [Kaldi](http://kaldi-asr.org/) installed.
 
-2. [TextGrid managing library] (https://github.com/Legisign/Praat-textgrids) cloned.
+2. [TextGrid managing library](https://github.com/Legisign/Praat-textgrids) cloned.
 
-3. [The EpaDB database] (https://drive.google.com/drive/folders/1eeWwhz--phRzk1vvGURHLvN0CzhbQeO6?usp=sharing) downloaded. 
+3. [The EpaDB database](https://drive.google.com/drive/folders/1eeWwhz--phRzk1vvGURHLvN0CzhbQeO6?usp=sharing) downloaded. 
 
 ## How to install
 To install this repository, do the following steps:
