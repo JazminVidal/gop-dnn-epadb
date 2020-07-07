@@ -1,5 +1,6 @@
 export KALDI_ROOT=/Users/jazmin/Desktop/kaldi
 export EPADB_ROOT=/Users/jazmin/Desktop/epadb
+export GOPEPA_REPO_ROOT=/Users/jazmin/Desktop/gop-dnn-epadb
 
 [ -f $KALDI_ROOT/tools/env.sh ] && . $KALDI_ROOT/tools/env.sh
 

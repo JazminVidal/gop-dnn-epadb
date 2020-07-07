@@ -14,13 +14,14 @@
 # You might not want to do this for interactive shells.
 set -e
 
-# Before running this recipe, you have to run the epadb recipe firstly.
+# Before running this recipe, you have to run the data_preparation.sh first.
+
+. ./path.sh
+
 # This script assumes the following paths exist.
 
-#Aca hay que sourcear el path.sh y setearle los paths de epadb_eg, model, ivector, etc. de forma absoluta
-
-epadb_eg=../../gop-dnn-epadb
-model=$epadb_eg/exp/nnet3_cleaned/tdnn_1d_sp
+epadb_eg=$GOPEPA_REPO_ROOT
+model=$epadb_eg/0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp
 ivector=$epadb_eg/exp/nnet3_cleaned/ivectors_test_epa_hires
 lang=$epadb_eg/data/lang_chain
 test_data=$epadb_eg/data/test_epa_hires
@@ -33,11 +34,11 @@ done
 stage=0
 nj=1
 
-data=test_epa
-dir=exp/gop_$data
+data=test_epa_hires
+results=$GOPEPA_REPO_ROOT/results
+dir=results/gop_$data
 
 . ./cmd.sh
-. ./path.sh
 . parse_options.sh
 
 ln -s $KALDI_ROOT/egs/gop/local
@@ -51,13 +52,13 @@ ln -s $KALDI_ROOT/egs/gop/local
 
 if [ $stage -le 1 ]; then
   # Compute Log-likelihoods
-  steps/nnet3/compute_output.sh --cmd "$cmd" --nj $nj \
-    --online-ivector-dir $ivector data/$data $model exp/probs_$data
+  steps/nnet3/compute_output.sh --cmd "run.pl" --nj $nj \
+    --online-ivector-dir $ivector $test_data $model results/probs_$data
 fi
 
 if [ $stage -le 2 ]; then
   steps/nnet3/align.sh --cmd "$cmd" --nj $nj --use_gpu false \
-    --online_ivector_dir $ivector data/$data $lang $model $dir
+    --online_ivector_dir $ivector $test_data $lang $model $dir
 fi
 
 if [ $stage -le 3 ]; then
@@ -107,6 +108,4 @@ if [ $stage -le 4 ]; then
   echo "The phones whose gop values less than -5 could be treated as mispronunciations."
 fi
 
-# Moving results from gop/s5/exp to the results folders
-
-echo 'Copying results'
+'

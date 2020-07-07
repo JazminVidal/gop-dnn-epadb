@@ -61,8 +61,7 @@ echo 'Downloading models from Kaldi'
 echo 'Reorganizing folders'
 
 # Move folders to the corresponding directories
-cp -r 0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp exp/nnet3_cleaned
-cp -r 0013_librispeech_v1/exp/nnet3_cleaned/extractor exp/nnet3_cleaned
+
 cp -r 0013_librispeech_v1/data/lang_chain data/
 
 
@@ -82,17 +81,7 @@ echo 'Extracting ivectors'
 nspk=$(wc -l <data/test_epa_hires/spk2utt)
 
 steps/online/nnet2/extract_ivectors_online.sh --cmd "run.pl" --nj "${nspk}" \
-      data/test_epa_hires exp/nnet3_cleaned/extractor \
+      data/test_epa_hires 0013_librispeech_v1/exp/nnet3_cleaned/extractor \
       exp/nnet3_cleaned/ivectors_test_epa_hires
 
 echo "Finish data preparation and feature extraction!"
-
-echo "Prepareing GOP directories" # Quizas esta parte deberia estar en el run.sh
-
-gop_dir= '$KALDI_ROOT/egs/gop/s5'
-
-mkdir $gop_dir/exp
-mkdir $gop_dir/data
-
-cp -r data/test_epa_hires $gop_dir/data/
-mv $gop_dir/data/test_epa_hires $gop_dir/data/test_epa
