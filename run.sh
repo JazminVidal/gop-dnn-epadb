@@ -41,7 +41,7 @@ dir=results/gop_$data
 . ./cmd.sh
 . parse_options.sh
 
-ln -s $KALDI_ROOT/egs/gop/local
+ln -s $KALDI_ROOT/egs/gop/s5/local
 
 #This stage is only necessary if you want to test with a data subset, see make_testcase.sh
 #if [ $stage -le 0 ]; then
@@ -50,16 +50,23 @@ ln -s $KALDI_ROOT/egs/gop/local
 #  local/make_testcase.sh $test_data data/$data
 #fi
 
+echo 'Computing outputs'
+
 if [ $stage -le 1 ]; then
   # Compute Log-likelihoods
   steps/nnet3/compute_output.sh --cmd "run.pl" --nj $nj \
     --online-ivector-dir $ivector $test_data $model results/probs_$data
 fi
 
+
+echo 'Aligning data'
+
 if [ $stage -le 2 ]; then
   steps/nnet3/align.sh --cmd "$cmd" --nj $nj --use_gpu false \
     --online_ivector_dir $ivector $test_data $lang $model $dir
 fi
+
+echo 'Cleaning files'
 
 if [ $stage -le 3 ]; then
   # make a map which converts phones to "pure-phones"
@@ -96,6 +103,8 @@ if [ $stage -le 4 ]; then
   # The column number is 2 * (pure-phone set size), as the feature is consist of LLR + LPR.
   # The phone-level features can be used to train a classifier with human labels. See Hu's
   # paper for detail.
+  echo 'Computing gop'
+
   $cmd JOB=1:$nj $dir/log/compute_gop.JOB.log \
     compute-gop --phone-map=$dir/phone-to-pure-phone.int $model/final.mdl \
       "ark,t:gunzip -c $dir/ali-pure-phone.JOB.gz|" \
