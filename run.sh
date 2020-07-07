@@ -106,3 +106,7 @@ if [ $stage -le 4 ]; then
   # dependent thresholds based on the human-labeled mispronunciation data.
   echo "The phones whose gop values less than -5 could be treated as mispronunciations."
 fi
+
+# Moving results from gop/s5/exp to the results folders
+
+echo 'Copying results'
