@@ -36,7 +36,6 @@ stage=0
 nj=1
 
 data=test_epa_hires
-#results=$GOPEPA_REPO_ROOT/results
 dir=exp/gop_$data
 
 . ./cmd.sh
@@ -44,15 +43,7 @@ dir=exp/gop_$data
 
 # Symbolic link to local folder in kaldi gop
 
-#ln -s $KALDI_ROOT/egs/gop/s5/local
-
-#This stage is only necessary if you want to test with a data subset, see make_testcase.sh
-
-#if [ $stage -le 0 ]; then
-#  # Prepare test data
-#  [ -d data ] || mkdir -p data/$data
-#  local/make_testcase.sh $test_data data/$data
-#fi
+ln -s $KALDI_ROOT/egs/gop/s5/local
 
 echo 'Computing outputs'
 
