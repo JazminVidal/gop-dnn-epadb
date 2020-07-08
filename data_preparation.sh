@@ -81,7 +81,7 @@ echo 'Extracting ivectors'
 #nspk=$(wc -l <data/test_epa_hires/spk2utt)
 #"${nspk}"
 
-steps/online/nnet2/extract_ivectors_online.sh --cmd "run.pl" --nj 1  \
+steps/online/nnet2/extract_ivectors_online.sh --cmd "run.pl" --nj 30  \
       data/test_epa_hires 0013_librispeech_v1/exp/nnet3_cleaned/extractor \
       exp/nnet3_cleaned/ivectors_test_epa_hires
 
