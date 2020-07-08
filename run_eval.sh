@@ -2,12 +2,14 @@
 
 set -ex
 
+. ./path.sh
+
 python3 generate_data_for_eval.py  \
-		--trans-SAE-path 'gop_files/transcriptionsSAE.txt'  \
-		--trans-complete-path 'gop_files/trans_complete.txt'  \
-		--textgrids-list 'manual_annot/textgrid_list' \
-		--gop-path 'gop_files/gop.1.txt' \
-		--phones-pure-path 'gop_files/phones-pure.txt' \
-	  	--manual-annot-dir 'manual_annot' \
-	  	--export-path 'results'  \
+		--trans-SAE-path $EPADB_ROOT/transcriptionsSAE.txt  \
+		--trans-complete-path $EPADB_ROOT/trans_complete.txt  \
+		--textgrids-list 'textgrid_list' \
+		--gop-path 'exp/gop_test_epa_hires/gop.1.txt' \
+		--phones-pure-path 'exp/gop_test_epa_hires/phones-pure.txt' \
+	  --manual-annot-dir 'labels_dir' \
+	  --export-path 'results'  \
 		--log-dir 'logs'  \

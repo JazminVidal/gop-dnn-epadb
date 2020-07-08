@@ -24,6 +24,7 @@ If you use this code or database, please cite the following paper:
 * [How to install](#how-to-install)
 * [How to run](#how-to-run)
 * [How to evaluate](#how-to-evaluate)
+* [How to visualize](#how-to-visualize)
 * [References](#references)
 
 
@@ -53,7 +54,7 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 1. [Kaldi](http://kaldi-asr.org/) installed.
 
-2. [TextGrid managing library](https://github.com/Legisign/Praat-textgrids) cloned or [pip](https://pypi.org/project/praat-textgrids/).
+2. [TextGrid managing library](https://github.com/Legisign/Praat-textgrids) cloned or installed using [pip](https://pypi.org/project/praat-textgrids/).
 
 3. [The EpaDB database](https://drive.google.com/file/d/1Fp1LOhTMGPNO_qA5V97XNSBxbjct9P34/view?usp=sharing) downloaded.
 
@@ -75,35 +76,39 @@ pip install -r requirements.txt
 ```
 export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 export EPADB_ROOT=path/to/where/epadb/is
-export GOPEPA_REPO_ROOT=/path/to/where/gop-dnn-epadb-repo/use
+export GOPEPA_REPO_ROOT=/path/to/where/gop-dnn-epadb-repo/is
 ```
 
 ## How to run
 
-1. Run data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's and extracts i-vectors.  
+1. Run data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's, extracts i-vectors and creates temporary folders from EpaDB files.
 
 ```
 ./data_preparation.sh
 ```
 
-6. Run the run.sh script:
+2. Run run.sh to compute alignments a goodness of pronunciation scores:
 
 ```
 ./run.sh
 ```
 
-7. You will find the results in the results folder.
+3. Results will be stored under exp folder. You should expect to find alignments, gop and prob files, among others.
 
 
 ## How to evaluate
 
-1. Run the evaluation script:
+1. Run the evaluation script to compute labels for EpaDB and match them to the gop results. Labels are computed by comparing the manual annotations in annotations_1 to all the possible correct transcriptions in trans_complete file. Alignments from different systems not always coincide. To sort this problem out the script also matches EpaDB alignments with those computed along the gop script.
 
 ```
 ./run_eval.sh
 ```
 
-3. You should expect to obtain a pickle file with all the information necessary to compute ROC, AUC, and EERs.
+3. Results are stored under results folder. You should expect to obtain a pickle file with all the information necessary to compute metrics and a folder with EpaDB labels.
+
+## How to visualize
+
+A Jupyter Notebook is provided to load the pickle and calculate metrics. 
 
 
 ## References

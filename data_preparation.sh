@@ -14,7 +14,7 @@ ln -s $KALDI_ROOT/src .
 # In the end you should expect to have wav.scp, utt2spk, spk2utt and text file in data/test folder.
 
 
-echo 'Creating epadb corpus folder from epadb files'
+echo 'Creating temporary folders from epadb files'
 
 [ ! -d corpus ] && mkdir corpus
 for d in $EPADB_ROOT/*/; do
@@ -24,6 +24,18 @@ for d in $EPADB_ROOT/*/; do
     done
 done
 
+
+[ ! -d labels_dir ] && mkdir labels_dir
+for d in $EPADB_ROOT/*/; do
+   [ ! -d "labels_dir/$(basename $d)" ] && mkdir "labels_dir/$(basename $d)"
+   for f in $d/annotations_1/*.TextGrid; do
+ ln -sf $f "labels_dir/$(basename $d)"
+   done
+done
+
+
+# general settings
+
 data='corpus'
 dir='data/test_epa'
 mkdir -p $dir
@@ -31,7 +43,7 @@ mkdir -p $dir
 echo 'Preparing data dirs'
 
 for d in $data/*; do
-    #echo $d
+
     for f in $d/*.wav; do
         filename="$(basename $f)"
         filepath="$(dirname $f)"
@@ -39,6 +51,7 @@ for d in $data/*; do
         echo "${filename%.*} $filepath/$filename" >> $dir/wav.scp # Prepare wav.scp
         echo "$spkname ${filename%.*}" >> $dir/spk2utt # Prepare spk2utt
         echo "${filename%.*} $spkname" >> $dir/utt2spk # Prepare utt2spk
+        echo "${filename%.*}" >> textgrid_list # Prepare textgrid list
         (
             printf "${filename%.*} "
             cat "$data/$spkname/${filename%.*}.lab" | tr [a-z] [A-Z]
