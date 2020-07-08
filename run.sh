@@ -12,6 +12,7 @@
 # classifiers, 2015."
 
 # You might not want to do this for interactive shells.
+
 set -e
 
 # Before running this recipe, you have to run the data_preparation.sh first.
@@ -58,15 +59,14 @@ if [ $stage -le 1 ]; then
     --online-ivector-dir $ivector $test_data $model results/probs_$data
 fi
 
-
 echo 'Aligning data'
 
 if [ $stage -le 2 ]; then
-  steps/nnet3/align.sh --cmd "$cmd" --nj $nj --use_gpu false \
+  steps/nnet3/align.sh --cmd "run.pl" --nj $nj --use_gpu false \
     --online_ivector_dir $ivector $test_data $lang $model $dir
 fi
 
-echo 'Cleaning files'
+echo 'mapping phones to pure-phones'
 
 if [ $stage -le 3 ]; then
   # make a map which converts phones to "pure-phones"
@@ -75,12 +75,15 @@ if [ $stage -le 3 ]; then
   local/remove_phone_markers.pl $lang/phones.txt $dir/phones-pure.txt \
     $dir/phone-to-pure-phone.int
 
+
   # Convert transition-id to pure-phone id
-  $cmd JOB=1:$nj $dir/log/ali_to_phones.JOB.log \
+    "run.pl" $nj $dir/log/ali_to_phones.JOB.log \
     ali-to-phones --per-frame=true $model/final.mdl "ark,t:gunzip -c $dir/ali.JOB.gz|" \
       "ark,t:-" \| utils/apply_map.pl -f 2- $dir/phone-to-pure-phone.int \| \
       gzip -c \>$dir/ali-pure-phone.JOB.gz   || exit 1;
 fi
+
+echo 'computing gop'
 
 if [ $stage -le 4 ]; then
   # The outputs of the binary compute-gop are the GOPs and the phone-level features.
@@ -103,18 +106,19 @@ if [ $stage -le 4 ]; then
   # The column number is 2 * (pure-phone set size), as the feature is consist of LLR + LPR.
   # The phone-level features can be used to train a classifier with human labels. See Hu's
   # paper for detail.
-  echo 'Computing gop'
-
-  $cmd JOB=1:$nj $dir/log/compute_gop.JOB.log \
+  "run.pl" $nj $dir/log/compute_gop.JOB.log \
     compute-gop --phone-map=$dir/phone-to-pure-phone.int $model/final.mdl \
       "ark,t:gunzip -c $dir/ali-pure-phone.JOB.gz|" \
       "ark:exp/probs_$data/output.JOB.ark" \
       "ark,t:$dir/gop.JOB.txt" "ark,t:$dir/phonefeat.JOB.txt"   || exit 1;
+
   echo "Done compute-gop, the results: \"$dir/gop.<JOB>.txt\" in posterior format."
 
   # We set -5 as a universal empirical threshold here. You can also determine multiple phone
   # dependent thresholds based on the human-labeled mispronunciation data.
   echo "The phones whose gop values less than -5 could be treated as mispronunciations."
 fi
+
+
 
 '
