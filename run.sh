@@ -36,15 +36,18 @@ stage=0
 nj=1
 
 data=test_epa_hires
-results=$GOPEPA_REPO_ROOT/results
-dir=results/gop_$data
+#results=$GOPEPA_REPO_ROOT/results
+dir=exp/gop_$data
 
 . ./cmd.sh
 . parse_options.sh
 
-ln -s $KALDI_ROOT/egs/gop/s5/local
+# Symbolic link to local folder in kaldi gop
+
+#ln -s $KALDI_ROOT/egs/gop/s5/local
 
 #This stage is only necessary if you want to test with a data subset, see make_testcase.sh
+
 #if [ $stage -le 0 ]; then
 #  # Prepare test data
 #  [ -d data ] || mkdir -p data/$data
@@ -55,18 +58,18 @@ echo 'Computing outputs'
 
 if [ $stage -le 1 ]; then
   # Compute Log-likelihoods
-  steps/nnet3/compute_output.sh --cmd "run.pl" --nj $nj \
-    --online-ivector-dir $ivector $test_data $model results/probs_$data
+  steps/nnet3/compute_output.sh --cmd "run.pl" --nj 1 \
+    --online-ivector-dir $ivector data/$data $model exp/probs_$data
 fi
 
 echo 'Aligning data'
 
 if [ $stage -le 2 ]; then
-  steps/nnet3/align.sh --cmd "run.pl" --nj $nj --use_gpu false \
-    --online_ivector_dir $ivector $test_data $lang $model $dir
+  steps/nnet3/align.sh --cmd "run.pl" --nj 1 --use_gpu false \
+    --online_ivector_dir $ivector data/$data $lang $model $dir
 fi
 
-echo 'mapping phones to pure-phones'
+echo 'Mapping phones to pure-phones'
 
 if [ $stage -le 3 ]; then
   # make a map which converts phones to "pure-phones"
@@ -75,15 +78,14 @@ if [ $stage -le 3 ]; then
   local/remove_phone_markers.pl $lang/phones.txt $dir/phones-pure.txt \
     $dir/phone-to-pure-phone.int
 
-
   # Convert transition-id to pure-phone id
-    "run.pl" $nj $dir/log/ali_to_phones.JOB.log \
+  "run.pl" JOB=1:$nj $dir/log/ali_to_phones.JOB.log \
     ali-to-phones --per-frame=true $model/final.mdl "ark,t:gunzip -c $dir/ali.JOB.gz|" \
       "ark,t:-" \| utils/apply_map.pl -f 2- $dir/phone-to-pure-phone.int \| \
       gzip -c \>$dir/ali-pure-phone.JOB.gz   || exit 1;
 fi
 
-echo 'computing gop'
+echo 'Computing gop'
 
 if [ $stage -le 4 ]; then
   # The outputs of the binary compute-gop are the GOPs and the phone-level features.
@@ -106,7 +108,7 @@ if [ $stage -le 4 ]; then
   # The column number is 2 * (pure-phone set size), as the feature is consist of LLR + LPR.
   # The phone-level features can be used to train a classifier with human labels. See Hu's
   # paper for detail.
-  "run.pl" $nj $dir/log/compute_gop.JOB.log \
+  "run.pl" JOB=1:$nj $dir/log/compute_gop.JOB.log\
     compute-gop --phone-map=$dir/phone-to-pure-phone.int $model/final.mdl \
       "ark,t:gunzip -c $dir/ali-pure-phone.JOB.gz|" \
       "ark:exp/probs_$data/output.JOB.ark" \
@@ -118,7 +120,3 @@ if [ $stage -le 4 ]; then
   # dependent thresholds based on the human-labeled mispronunciation data.
   echo "The phones whose gop values less than -5 could be treated as mispronunciations."
 fi
-
-
-
-'
