@@ -13,6 +13,7 @@ ln -s $KALDI_ROOT/src .
 # The script takes epadb waveforms and transcriptions and creates a temporal directory with .wav and .lab files to extract features.
 # In the end you should expect to have wav.scp, utt2spk, spk2utt and text file in data/test folder.
 
+mkdir exp
 
 echo 'Creating temporary folders from epadb files'
 
@@ -34,6 +35,9 @@ for d in $EPADB_ROOT/*/; do
 
    done
 done
+
+
+
 
 
 # general settings
