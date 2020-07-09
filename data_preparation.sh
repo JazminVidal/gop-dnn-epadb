@@ -29,7 +29,9 @@ done
 for d in $EPADB_ROOT/*/; do
    [ ! -d "labels_dir/$(basename $d)" ] && mkdir "labels_dir/$(basename $d)"
    for f in $d/annotations_1/*.TextGrid; do
- ln -sf $f "labels_dir/$(basename $d)"
+      ln -sf $f "labels_dir/$(basename $d)"
+      echo $(basename $f) | cut -d "." -f1 >> textgrid_list
+
    done
 done
 
@@ -51,7 +53,6 @@ for d in $data/*; do
         echo "${filename%.*} $filepath/$filename" >> $dir/wav.scp # Prepare wav.scp
         echo "$spkname ${filename%.*}" >> $dir/spk2utt # Prepare spk2utt
         echo "${filename%.*} $spkname" >> $dir/utt2spk # Prepare utt2spk
-        echo "${filename%.*}" >> textgrid_list # Prepare textgrid list
         (
             printf "${filename%.*} "
             cat "$data/$spkname/${filename%.*}.lab" | tr [a-z] [A-Z]
@@ -97,5 +98,8 @@ echo 'Extracting ivectors'
 steps/online/nnet2/extract_ivectors_online.sh --cmd "run.pl" --nj 30  \
       data/test_epa_hires 0013_librispeech_v1/exp/nnet3_cleaned/extractor \
       exp/nnet3_cleaned/ivectors_test_epa_hires
+
+echo "Finish data preparation and feature extraction!"
+
 
 echo "Finish data preparation and feature extraction!"
