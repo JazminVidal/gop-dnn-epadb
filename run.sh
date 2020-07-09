@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 
-# Copyright 2019 Junbo Zhang
-# Apache 2.0
-
 # This script shows how to calculate Goodness of Pronunciation (GOP) and
 # extract phone-level pronunciation feature for mispronunciations detection
-# tasks. Read ../README.md or the following paper for details:
-#
-# "Hu et al., Improved mispronunciation detection with deep neural network
-# trained acoustic models and transfer learning based logistic regression
-# classifiers, 2015."
+# tasks for EpaDB database. The script is based in the official Kaldi GOP-dnn
+# recipe.
 
 # You might not want to do this for interactive shells.
 
@@ -38,7 +32,6 @@ nj=1
 data=test_epa_hires
 dir=exp/gop_$data
 
-. ./cmd.sh
 . parse_options.sh
 
 # Symbolic link to local folder in kaldi gop
