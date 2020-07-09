@@ -56,7 +56,7 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 2. [TextGrid managing library](https://github.com/Legisign/Praat-textgrids) cloned or installed using [pip](https://pypi.org/project/praat-textgrids/).
 
-3. [The EpaDB database](https://drive.google.com/file/d/1Fp1LOhTMGPNO_qA5V97XNSBxbjct9P34/view?usp=sharing) downloaded. Alternative [link]()
+3. [The EpaDB database](https://drive.google.com/file/d/1Fp1LOhTMGPNO_qA5V97XNSBxbjct9P34/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/13ylpy846hq3d7p/epadb.zip?dl=0)
 
 ## How to install
 
