@@ -1,109 +1,80 @@
-#!/bin/sh
-
-#set -x
-
-echo 'Preparing useful directories'
+#!/bin/sh -e
 
 . ./path.sh
 
-ln -s $KALDI_ROOT/egs/wsj/s5/steps .
-ln -s $KALDI_ROOT/egs/wsj/s5/utils .
-ln -s $KALDI_ROOT/src .
+ln -fs $KALDI_ROOT/egs/wsj/s5/steps .
+ln -fs $KALDI_ROOT/egs/wsj/s5/utils .
+ln -fs $KALDI_ROOT/src .
 
-# The script takes epadb waveforms and transcriptions and creates a temporal directory with .wav and .lab files to extract features.
-# In the end you should expect to have wav.scp, utt2spk, spk2utt and text file in data/test folder.
+data=epadb
+expdir=$data/test
 
-mkdir exp
+# This script takes epadb waveforms and transcriptions and creates a temporal directory with .wav and .lab files to extract features.
+# In the end you should expect to have wav.scp, utt2spk, spk2utt and text files in data/test folder.
 
-echo 'Creating temporary folders from epadb files'
+echo 'Creating temporary folders for epadb files'
 
-[ ! -d corpus ] && mkdir corpus
 for d in $EPADB_ROOT/*/; do
-    [ ! -d "corpus/$(basename $d)" ] && mkdir "corpus/$(basename $d)"
-    for f in $d/waveforms/*.wav $d/transcriptions/*.lab; do
-	ln -sf $f "corpus/$(basename $d)"
-    done
+    echo $d
+    mkdir -p $data/corpus/$(basename $d) $data/labels/$(basename $d)
+    ln -sf $d/waveforms/*.wav          $data/corpus/$(basename $d)/
+    ln -sf $d/transcriptions/*.lab     $data/corpus/$(basename $d)/
+    ln -sf $d/annotations_1/*.TextGrid $data/labels/$(basename $d)/
 done
 
 
-[ ! -d labels_dir ] && mkdir labels_dir
-for d in $EPADB_ROOT/*/; do
-   [ ! -d "labels_dir/$(basename $d)" ] && mkdir "labels_dir/$(basename $d)"
-   for f in $d/annotations_1/*.TextGrid; do
-      ln -sf $f "labels_dir/$(basename $d)"
-      echo $(basename $f) | cut -d "." -f1 >> textgrid_list
-
-   done
-done
-
-
-
-
-
-# general settings
-
-data='corpus'
-dir='data/test_epa'
-mkdir -p $dir
+# Files needed by Kaldi scripts
 
 echo 'Preparing data dirs'
 
-for d in $data/*; do
+mkdir -p $expdir
+rm -rf $expdir/{wav.scp,spk2utt,utt2spk,text}
+for d in $data/corpus/*; do
 
     for f in $d/*.wav; do
-        filename="$(basename $f)"
-        filepath="$(dirname $f)"
-        spkname="$(basename $filepath)"
-        echo "${filename%.*} $filepath/$filename" >> $dir/wav.scp # Prepare wav.scp
-        echo "$spkname ${filename%.*}" >> $dir/spk2utt # Prepare spk2utt
-        echo "${filename%.*} $spkname" >> $dir/utt2spk # Prepare utt2spk
+        filename=$(basename $f .wav)
+        filepath=$(dirname $f)
+        spkname=$(basename $filepath)
+        echo "$filename $f"       >> $expdir/wav.scp # Prepare wav.scp
+        echo "$spkname $filename" >> $expdir/spk2utt # Prepare spk2utt
+        echo "$filename $spkname" >> $expdir/utt2spk # Prepare utt2spk
         (
-            printf "${filename%.*} "
-            cat "$data/$spkname/${filename%.*}.lab" | tr [a-z] [A-Z]
+            printf "$filename "
+            cat $data/corpus/$spkname/${filename%.*}.lab | tr [a-z] [A-Z]
             printf "\n"
-        ) >> $dir/text # Prepare transcript
+        ) >> $expdir/text # Prepare transcriptions
     done
 done
+utils/fix_data_dir.sh $expdir
 
-utils/fix_data_dir.sh $dir
-
-# wav-to-duration --read-entire-file=true p,scp:$dir/wav.scp ark,t:$dir/utt2dur || exit 1; # Prepare utt2dur
 
 # Download language model and acoustic model from Kaldi. For more details see: https://kaldi-asr.org/models/m13
 
-echo 'Downloading models from Kaldi'
+if [ ! -d 0013_librispeech_v1 ]; then
 
-[ ! -f 0013_librispeech_s5.tar.gz ] &&  wget https://kaldi-asr.org/models/13/0013_librispeech_s5.tar.gz
-[ ! -d 0013_librispeech_v1 ] &&  tar -zxvf 0013_librispeech_s5.tar.gz
+    echo 'Downloading models from Kaldi. This will take some time, depending on your network speed.'
 
-echo 'Reorganizing folders'
+    wget https://kaldi-asr.org/models/13/0013_librispeech_s5.tar.gz
+    tar -zxvf 0013_librispeech_s5.tar.gz 
 
-# Move folders to the corresponding directories
+fi
 
-cp -r 0013_librispeech_v1/data/lang_chain data/
+# Extract the MFCC features for all the wavs
 
+echo 'Extracting features'
 
-# copying folder for feature extraction
-utils/copy_data_dir.sh data/test_epa data/test_epa_hires
-
-echo 'Extracting features for DNN model!'
-
-steps/make_mfcc.sh --nj 8 --mfcc-config conf/mfcc_hires.conf --cmd "run.pl" data/test_epa_hires
-steps/compute_cmvn_stats.sh data/test_epa_hires
-utils/fix_data_dir.sh data/test_epa_hires
+steps/make_mfcc.sh --nj 2 --mfcc-config conf/mfcc_hires.conf --cmd "run.pl" $expdir
+steps/compute_cmvn_stats.sh $expdir
+utils/fix_data_dir.sh $expdir
 
 # Extract ivectors
 
 echo 'Extracting ivectors'
 
-#nspk=$(wc -l <data/test_epa_hires/spk2utt)
-#"${nspk}"
-
 steps/online/nnet2/extract_ivectors_online.sh --cmd "run.pl" --nj 30  \
-      data/test_epa_hires 0013_librispeech_v1/exp/nnet3_cleaned/extractor \
-      exp/nnet3_cleaned/ivectors_test_epa_hires
+    $expdir 0013_librispeech_v1/exp/nnet3_cleaned/extractor \
+    $expdir/ivectors
 
-echo "Finish data preparation and feature extraction!"
+echo 'Finished data preparation and feature extraction!'
 
 
-echo "Finish data preparation and feature extraction!"

@@ -1,6 +1,5 @@
-export KALDI_ROOT=/path/where/your/kaldi/is
-export EPADB_ROOT=/path/where/epadb/is
-export GOPEPA_REPO_ROOT=/path/where/gop_epadb/repo/is
+export KALDI_ROOT=../kaldi
+export EPADB_ROOT=/Users/lferrer/pronscore/epadb
 
 [ -f $KALDI_ROOT/tools/env.sh ] && . $KALDI_ROOT/tools/env.sh
 

@@ -23,16 +23,10 @@ import pandas as pd
 import joblib
 import shutil
 import argparse
-
-
-
-# Function that trims all zeros from the transcriptions file
-def clean_zeros(trans):
-    return [x for x in trans if x != '0']
+import glob
 
 def phonelist2str(phones):
     return " ".join(["%3s"%p for p in phones])
-
 
 # Function that matches phone ints to phone symbols and loads them to a dictionary
 def phones2dic(path):
@@ -47,18 +41,6 @@ def phones2dic(path):
     return phones_dic
 
 
-# Removes unnecesary directories
-
-def removeFile(fname):
-
-    try:
-        if os.path.isfile(fname):
-            remove(fname)
-    except OSError as err:
-        # Raise the error unless it's about an already existing directory
-        if err.errno != errno.EEXIST or not os.path.isdir(newdir):
-            raise
-
 def mkdirs(newdir):
     try: os.makedirs(newdir)
     except OSError as err:
@@ -69,6 +51,7 @@ def mkdirs(newdir):
 # Function that reads transcriptions files and loads them to
 # a series of useful dictionaries
 def generate_dict_from_transcripctions(transcriptions):
+
     trans_dict = dict()
     trans_dict_clean = dict()
     sent_dict = dict()
@@ -76,7 +59,7 @@ def generate_dict_from_transcripctions(transcriptions):
     # Read transcription file
     for line in open(transcriptions,'r'):
 
-        fields = line.split()
+        fields = line.strip().split()
 
         if len(fields) <= 2:
             continue
@@ -107,17 +90,16 @@ def generate_dict_from_transcripctions(transcriptions):
             trans_new = []
             for p in phones:
                 for t in trans:
-                    t_tmp = t + [p]
+                    t_tmp = t + [p.strip()]
                     trans_new.append(t_tmp)
             trans = trans_new
 
         trans_dict[sent] += trans
 
-
     for sent, trans in trans_dict.items():
         trans_clean_new = []
         for t in trans:
-            trans_clean_new.append(clean_zeros(t))
+            trans_clean_new.append([x for x in t if x != '0'])
 
         if sent not in trans_dict_clean:
             trans_dict_clean[sent] = list()
@@ -135,25 +117,22 @@ def get_gop_alignments(path_filename):
     output = []
 
     for line in open(path_filename).readlines():
-        l=line.split()
+        l = line.split()
 
         if len(l) < 2:
             print("Invalid line in '" + path_filename + "': No scores found.")
         else:
             logid = l[0]
             data = l[1:]
-            i = 0
             phones = []
             gop_scores = []
 
-            while i < len(data):
+            for i in np.arange(0, len(data), 4):
                 if data[i] == "[":
-                    phone = int(data[i+1])
-                    gop_score = float(data[i+2])
-                    phones.append(phone)
-                    gop_scores.append(gop_score)
-
-                    i = i + 4
+                    phones.append(int(data[i+1]))
+                    gop_scores.append(float(data[i+2]))
+                else:
+                    raise Exception("Bad format in gop file %s"%path_filename)
 
             output.append({'logid': str(logid),
                             'phones': phones,
@@ -165,153 +144,104 @@ def get_gop_alignments(path_filename):
 
 
 # Function that matches labels and phones from manual annotations with phones and scores from gop-dnn.
-# This is a necessary step because manual annotations based on Montral Forced Aligner alignments
+# This is a necessary step because manual annotations based on the forced alignments
 # do not always coincide with gop's alignments.
 # Note that whenever a phone is missing in the gop alignment a "?" is added to discard the corresponding label
 # and, whenever a '0' (deletion) is present in the manual annotation, the gop score is discarded.
 
-
 def match_labels2gop(logid, trans_zero, trans_manual, trans_auto, labels, gop_scores):
+
     output_ = []
     rows = []
-    i = 0
     j = 0
 
     for i in range(0, len(trans_manual)):
-        row = []
+        
         label = labels[i]
         phone_manual = trans_manual[i]
         phone_zero = trans_zero[i]
-        if phone_zero == '0':
-            pass
-        else:
+        
+        if phone_zero != '0':
             if j > len(trans_auto)-1:
-                print("out of range")
+                raise Exception("Index out of range")
 
             phone_automatic = trans_auto[j]
-
-            row.append(logid)
-            row.append(phone_automatic)
-            row.append(label)
-            row.append(gop_scores[j])
-            rows.append(row)
-
-
-
+            rows.append([logid, phone_automatic, label, gop_scores[j]])
             j = j + 1
 
     columns = ['logid', 'phone', 'label', 'gop_scores']
-
     df = pd.DataFrame(rows, columns=columns)
     return df
 
 
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--trans-complete-file', dest='trans_complete_path', help='File with phonetic transcriptions of each of the phrases', default=None)
+    parser.add_argument('--trans-SAE-file', dest='trans_SAE_path', help='File with phonetic transcriptions of each of the phrases', default=None)
+    parser.add_argument('--labels-dir', dest='labels_dir', help='Directory with textgrid files with annotations', default=None)
+    parser.add_argument('--output-dir', dest='output_dir', help='Output dir', default=None)
+    parser.add_argument('--gop-file', dest='gop_path', help='File with gop results', default=None)
+    parser.add_argument('--phones-pure-file', dest='phones_pure_path', help='file that matches phone ints to phone symbols', default=None)
+    
+    args = parser.parse_args()
 
-# Function that generates a pickle with useful data to analyze.
-# The outpul will serve to compute ROCs, AUCs and EERs.
+    # Code that generates a pickle with useful data to analyze.
+    # The outpul will be used to compute ROCs, AUCs and EERs.
 
-def generate_data_for_eval(transcriptions, transcriptions_complete, textgrid_list, gop_path, phones_pure_path, labels_dir, log_dir, export_path):
+    output = []
+    
+    trans_dict, trans_dict_clean, sent_dict = generate_dict_from_transcripctions(args.trans_SAE_path)
+    trans_dict_complete, trans_dict_clean_complete, sent_dict_complete = generate_dict_from_transcripctions(args.trans_complete_path)
 
-    output_ = []
-    output1_ = []
+    gop_alignments = get_gop_alignments(args.gop_path)
+    dict_phones = phones2dic(args.phones_pure_path)
 
-    trans_dict, trans_dict_clean, sent_dict = generate_dict_from_transcripctions(transcriptions)
-    trans_dict_complete, trans_dict_clean_complete, sent_dict_complete = generate_dict_from_transcripctions(transcriptions_complete)
+    utterance_list = [re.sub('.TextGrid','', re.sub('.*\/','',s)) for s in glob.glob("%s/*/*"%args.labels_dir)]
+    
+    # Now, iterate over utterances
+    for utterance in utterance_list:
 
-    gop_alignments = get_gop_alignments(gop_path)
-    dict_phones = phones2dic(phones_pure_path)
-
-
-    # Now, iterate over speakers
-    for utterance in [l.strip() for l in open(textgrid_list, 'r').readlines()]:
-
-        spk = utterance.split("_")[0]
-        sent = utterance.split("_")[1]
-
+        spk, sent = utterance.split("_")
+        tgfile = "%s/%s/%s.TextGrid"%(args.labels_dir, spk, utterance) #TextGrid file for current utterance
+        
         print("----------------------------------------------------------------------------------------")
-        print("Speaker %s"%spk)
-
-
-        outlogdir = "%s/%s" % (log_dir, spk)
-        logoutfile = "%s_%s.txt" % (outlogdir, sent)
-        removeFile(logoutfile)
-
-
-        tgfile = "%s/%s/%s.TextGrid"%(labels_dir, spk, utterance) #TextGrid file for current utterance
-
-        print("Sentence %s: %s (File: %s)"%(sent," ".join(sent_dict[sent]), tgfile))
+        print("Speaker %s, sentence %s: %s (File: %s)"%(spk, sent, " ".join(sent_dict[sent]), tgfile))
 
         try:
-            if spk+'_'+sent in gop_alignments.index.values:
-                tg = gop_alignments.loc()[spk+'_'+sent].phones
-                gop_scores = gop_alignments.loc()[spk+'_'+sent].gop_score
-            else:
-                print("WARNING: Missing score for "+ spk+'_'+sent)
-                continue
+            tg = textgrids.TextGrid(tgfile)
         except:
-            logoutfile = "%s_%s.txt" % (outlogdir, sent)
-            logoutf=open(logoutfile,'a')
-            logoutf.write("Sentence %s: %s (File: %s)"%(sent," ".join(sent_dict[sent]), spk+'_'+sent))
-            logoutf.write("WARNING: Missing file %s\n"%spk+'_'+sent +"\n\n")
-            logoutf.close()
-
-            print("WARNING: Missing file %s\n"%tgfile)
             continue
-
-        #Get phone list from automatic annotation in current textgrid
-        annot = []
-        for i in range(0, len(tg)):
-            phone = dict_phones[tg[i]]
-            phone = phone.split('_')[0]
-            if phone not in ['sil', '[key]', 'sp', '', 'SIL', '[KEY]', 'SP']:
-                if (phone[-1] not in ['1', '0', '2']):
-                    p = phone
-                    annot += [p]
-                else:
-                    if(phone == 'AH0'):
-                        p = phone
-                        annot += [p]
-                    else:
-                        p = phone[:-1]
-                        annot += [p]
-
-        try:
-
-	        tg = textgrids.TextGrid(tgfile)
-
-        except:
-            logoutfile = "%s_%s.txt" % (outlogdir, sent)
-
-            logoutf=open(logoutfile,'a')
-            logoutf.write("Sentence %s: %s (File: %s)"%(sent," ".join(sent_dict[sent]), tgfile))
-            logoutf.write("WARNING: Missing file %s\n"%tgfile + " or wrong TextGrid library installed.\n\n")
-            logoutf.close()
-
-            print("WARNING: Missing file %s\n"%tgfile + " or wrong TextGrid library installed.")
-            continue
+            raise Exception("Bad textgrid file %s"%tgfile)
 
         if len(tg) < 4:
-            print("WARNING: File %s does not have an annotation or a score tier\n"%tgfile)
             continue
+            raise Exception("WARNING: File %s does not have an annotation or a score tier\n"%tgfile)
 
+        if utterance in gop_alignments.index.values:
+            phone_idxs = gop_alignments.loc[utterance].phones
+            gop_scores = gop_alignments.loc[utterance].gop_score
+            annot = []
+            for phone_idx in phone_idxs:
+                phone = dict_phones[phone_idx]
+                if phone not in ['sil', '[key]', 'sp', '', 'SIL', '[KEY]', 'SP']:
+                    if phone[-1] not in ['1', '0', '2']:
+                        annot += [phone]
+                    else:
+                        # If it has an int at the end, delete it, except for AH0                        
+                        annot += [phone] if(phone == 'AH0') else [phone[:-1]]
+        else:
+            continue
+            raise Exception("WARNING: Missing score for "+ utterance)
+            
         #Get phone list from manual annotation in current textgrid
         annot_manual = []
         for i in tg['annotation']:
-            p = i.text
+            p = i.text.strip()
             if p not in ['sil', '', 'sp', 'None']:
                 if p[-1] not in ['0','1', '2']:
                     annot_manual += [p]
                 else:
-                    if p == 'AH0':
-                        annot_manual += [p]
-                    else:
-                        p = p[:-1]
-                        annot_manual += [p]
-
-        annot_manual_trim = np.char.strip(annot_manual)
-
-
-
+                    annot_manual += [p]  if p == 'AH0' else [p[:-1]]
 
         # Find the transcription for this sentence that best matches the annotation
         best_trans = -1
@@ -322,108 +252,47 @@ def generate_data_for_eval(transcriptions, transcriptions_complete, textgrid_lis
                 if num_correct > best_trans_corr:
                     best_trans_corr = num_correct
                     best_trans = trans_idx
-
+            else:
+                print(trans)
+                print(annot)
+                continue
+                raise Exception("Transcription length does not match annotation length (%d != %d)"%(len(trans), len(annot)))
 
         best_trans1 = -1
         best_trans_corr = 0
         for trans_idx, trans1 in enumerate(trans_dict_complete[sent]):
-            if(len(trans1) == len(annot_manual_trim)):
-                num_correct = np.sum([t==a for t, a in np.c_[trans1,annot_manual_trim]])
+            if(len(trans1) == len(annot_manual)):
+                num_correct = np.sum([t==a for t, a in np.c_[trans1,annot_manual]])
                 if num_correct > best_trans_corr:
                     best_trans_corr = num_correct
                     best_trans1 = trans_idx
-
-
-
-        if best_trans != -1:
-            if (len(trans_dict_complete[sent][best_trans1]) == len(annot_manual_trim)):
-                trans = trans_dict_clean[sent][best_trans]
-                trans_zero = np.char.strip(trans_dict[sent][best_trans])
-                trans_reff_complete =  np.char.strip(trans_dict_complete[sent][best_trans1])
-
-
-                labels = np.array(['+' if t==a else '-' for t, a in np.c_[trans_reff_complete,annot_manual_trim]])
-                print("TRANS_REFF:           %s (chosen out of %d transcriptions)"%(phonelist2str(trans), len(trans_dict_clean[sent])))
-                print("TRANS_AUTO:           "+phonelist2str(annot))
-                print("LABEL:                "+phonelist2str(labels))
-                print("TRANS_ZERO:           "+phonelist2str( trans_zero))
-                print("TRANS_MANUAL:         "+phonelist2str( annot_manual_trim))
-                print("TRANS_REFF_COMPLETE:  "+phonelist2str( trans_reff_complete))
-                print("TRANS_WITHOUT_ZERO:"+phonelist2str( trans))
-                #outdir = "%s/%s" % (export_path, spk)
-                mkdirs(export_path)
-
-
-                outdir = "%s/%s/%s" % (export_path, 'labels', spk)
-                mkdirs(export_path + '/labels')
-                mkdirs(outdir)
-                outfile = "%s/%s_%s.txt" % (outdir, spk, sent)
-                np.savetxt(outfile, np.c_[np.arange(len(annot_manual_trim)), trans_reff_complete, annot_manual_trim, labels], fmt=spk+"_"+sent+"_%s %s %s %s")
-
-
-                logid = spk+"_"+sent
-                df_match_annot = match_labels2gop(logid, trans_zero, annot_manual_trim, annot, labels, gop_scores)
-                df_t = df_match_annot.T
-                output1_.append({'label': list(df_t.loc()['label']),
-                                'phone': list(df_t.loc()['phone']),
-                                'gop_scores':list(df_t.loc()['gop_scores']),
-                                'logid': logid})
-
             else:
+                continue
+                raise Exception("Transcription length does not match annotation length (%d != %d)"%(len(trans1), len(annot_manual)))
 
-                logoutfile = "%s_%s.txt" % (outlogdir, sent)
+        trans      = trans_dict_clean[sent][best_trans]
+        trans_zero = trans_dict[sent][best_trans]
+        trans_reff_complete = trans_dict_complete[sent][best_trans1]
 
-                logoutf=open(logoutfile,'a')
-                logoutf.write('TRANS_MANUAL \n\n')
-                np.savetxt(logoutf, np.c_[np.arange(len(annot_manual)), annot_manual], fmt=spk+"_"+sent+"_%s %s")
-                logoutf.write('\n\nTRANS_ZERO \n\n')
-                np.savetxt(logoutf, np.c_[np.arange(len(trans_dict[sent][best_trans])), trans_dict[sent][best_trans]], fmt=spk+"_"+sent+"_%s %s")
+        labels = np.array(['+' if t==a else '-' for t, a in np.c_[trans_reff_complete,annot_manual]])
+        print("TRANS_REFF:           %s (chosen out of %d transcriptions)"%(phonelist2str(trans), len(trans_dict_clean[sent])))
+        print("TRANS_AUTO:           "+phonelist2str(annot))
+        print("LABEL:                "+phonelist2str(labels))
+        print("TRANS_ZERO:           "+phonelist2str(trans_zero))
+        print("TRANS_MANUAL:         "+phonelist2str(annot_manual))
+        print("TRANS_REFF_COMPLETE:  "+phonelist2str(trans_reff_complete))
+        print("TRANS_WITHOUT_ZERO:   "+phonelist2str(trans))
+       
+        outdir  = "%s/labels/%s" % (args.output_dir, spk)
+        outfile = "%s/%s.txt" % (outdir, utterance)
+        mkdirs(outdir + '/labels')
+        np.savetxt(outfile, np.c_[np.arange(len(annot_manual)), trans_reff_complete, annot_manual, labels], fmt=utterance+"_%s %s %s %s")
 
-                logoutf.close()
+        df = match_labels2gop(utterance, trans_zero, annot_manual, annot, labels, gop_scores)
+        output.append(df)
 
-        else:
-
-            logoutfile = "%s_%s.txt" % (outlogdir, sent)
-
-            logoutf=open(logoutfile,'a')
-            logoutf.write('ANNOT \n\n')
-            np.savetxt(logoutf, np.c_[np.arange(len(annot)), annot], fmt=spk+"_"+sent+"_%s %s")
-            logoutf.write('\n\nTRANS DICT \n\n')
-
-            for trans_idx, trans in enumerate(trans_dict_clean[sent]):
-
-                logoutf.write(str(trans_idx)+'\n\n')
-
-                np.savetxt(logoutf, np.c_[np.arange(len(trans)), trans], fmt=spk+"_"+sent+"_%s %s")
-                logoutf.write('------------------------------------------------------------------ \n\n')
-
-            logoutf.close()
-
-    df_trans_match = pd.DataFrame(output1_).set_index('logid')
+    df_trans_match = pd.concat(output).set_index('logid')
 
     #Export file containing data for evaluation
-    joblib.dump(df_trans_match, export_path + '/data_for_eval.pickle')
+    joblib.dump(df_trans_match, args.output_dir + '/data_for_eval.pickle')
 
-
-
-# ----------------------------------
-
-def main(args):
-    generate_data_for_eval(args.trans_SAE_path, args.trans_complete_path, args.textgrids_list, args.gop_path, args.phones_pure_path, args.manual_annot_dir, args.log_dir, args.export_path)
-
-if __name__ == '__main__':
-  parser = argparse.ArgumentParser()
-  parser.add_argument('--trans-complete-path', dest='trans_complete_path', help='File with phonetic transcriptions of each of the phrases', default=None)
-  parser.add_argument('--trans-SAE-path', dest='trans_SAE_path', help='File with phonetic transcriptions of each of the phrases', default=None)
-  parser.add_argument('--manual-annot-dir', dest='manual_annot_dir', help='Directory with manual annotation textgrid files', default=None)
-  parser.add_argument('--export-path', dest='export_path', help='Export output path', default=None)
-  parser.add_argument('--textgrids-list', dest='textgrids_list', help='List speakers textgrids path', default=None)
-  parser.add_argument('--gop-path', dest='gop_path', help='File with gop results', default=None)
-  parser.add_argument('--phones-pure-path', dest='phones_pure_path', help='file that matches phone ints to phone symbols', default=None)
-  parser.add_argument('--log-dir', dest='log_dir', help='directory of logs', default=None)
-
-
-  args = parser.parse_args()
-
-
-  main(args)
