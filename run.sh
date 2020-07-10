@@ -1,6 +1,9 @@
 #!/usr/bin/env bash -ex
 
-# This script is based on the script run.sh in the .... repo by ...
+# This script calculates Goodness of Pronunciation (GOP) scores and
+# extract phone-level pronunciation feature for mispronunciations detection
+# tasks for EpaDB database. The script is based in the official Kaldi GOP-dnn
+# recipe.
 
 # Make sure to run data_preparation before running this script.
 

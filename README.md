@@ -9,7 +9,7 @@ If you use this code or database, please cite the following paper:
 ```
 @article{vidal2019epadb,
   title={EpaDB: a database for development of pronunciation assessment systems},
-  author={Vidal, Jazm{\i}n and Ferrer, Luciana and Brambilla, Leonardo},
+  author={Vidal, Jazmin and Ferrer, Luciana and Brambilla, Leonardo},
   journal={Proc. Interspeech 2019},
   pages={589--593},
   year={2019}
@@ -19,12 +19,9 @@ If you use this code or database, please cite the following paper:
 
 ## Table of Contents
 * [Introduction](#introduction)
-* [Database Overview](#Database-overview)
 * [Prerequisites](#prerequisites)
 * [How to install](#how-to-install)
 * [How to run](#how-to-run)
-* [How to evaluate](#how-to-evaluate)
-* [How to visualize](#how-to-visualize)
 * [References](#references)
 
 
@@ -38,14 +35,6 @@ Each speaker recorded 64 short Englsh phrases phonetically balanced and specific
 All recordings were annotated at phone level by two expert raters.
 For the sake of simplicity we followed, when possible, the organization given by the L2-ARCTIC corpus.
 
-## Database Overview
-For each speaker, the database contains:
-
-* **Speech recordings**: 64 short English phrases (some of them may have been removed because of quality problems)
-* **Word and phoneme level reference transcriptions**: Reference word and phoneme transcriptions in ARPA-bet obtained using the Montreal Forced Aligner. Boundaries were manually corrected by the raters.
-* **Phoneme level manual transcriptions**: Phoneme level annotations of what the subject actually pronounced in ARPA-bet and an ARPA-bet like extension to account for those sounds not present in the English inventory.
-* **Reference transcriptions**: for each utterance, the set of all the correct pronunciations in ARPA-bet. This file is useful to compute labels.
-
 For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1lYQwehQ28vvayv1GABASIlMhiSTuHnU9/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
 If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/1Fp1LOhTMGPNO_qA5V97XNSBxbjct9P34/view?usp=sharing).
@@ -54,7 +43,7 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 1. [Kaldi](http://kaldi-asr.org/) installed.
 
-2. [TextGrid managing library](https://github.com/Legisign/Praat-textgrids) cloned or installed using [pip](https://pypi.org/project/praat-textgrids/).
+2. [TextGrid managing library] installed using [pip](https://pypi.org/project/praat-textgrids/).
 
 3. [The EpaDB database](https://drive.google.com/file/d/1Fp1LOhTMGPNO_qA5V97XNSBxbjct9P34/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/13ylpy846hq3d7p/epadb.zip?dl=0)
 
@@ -68,6 +57,7 @@ git clone https://github.com/JazminVidal/gop-dnn-epadb.git
 ```
 
 2. Check the requirements.txt file:
+
 ```
 pip install -r requirements.txt
 ```
@@ -87,28 +77,20 @@ export GOPEPA_REPO_ROOT=/path/to/where/gop-dnn-epadb-repo/is
 ./data_preparation.sh
 ```
 
-2. Run run.sh to compute alignments a goodness of pronunciation scores:
+2. Run run.sh to compute alignments a goodness of pronunciation scores. Results will be stored under exp folder. You should expect to find alignments, gop and prob files, among others.
 
 ```
 ./run.sh
 ```
 
-3. Results will be stored under exp folder. You should expect to find alignments, gop and prob files, among others.
-
-
-## How to evaluate
-
-1. Run the evaluation script to compute labels for EpaDB and match them to the gop results. Labels are computed by comparing the manual annotations in annotations_1 to all the possible correct transcriptions in trans_complete file. Alignments from different systems not always coincide. To sort this problem out the script also matches EpaDB alignments with those computed along the gop script.
+3. Run the evaluation script to compute labels for EpaDB and match them to the gop results. Labels are computed by comparing the manual annotations in annotations_1 to all the possible correct transcriptions in trans_complete file. Alignments from different systems not always coincide. To sort this problem out the script also matches EpaDB alignments with those computed along the gop script. Results are stored under results folder. You should expect to obtain a pickle file with all the information necessary to compute metrics and a folder with EpaDB labels.
 
 ```
 ./run_eval.sh
 ```
+4. Run the plotter script to obtain metrcs and plots.
 
-3. Results are stored under results folder. You should expect to obtain a pickle file with all the information necessary to compute metrics and a folder with EpaDB labels.
 
-## How to visualize
-
-A Jupyter Notebook is provided to load the pickle and calculate metrics. 
 
 
 ## References

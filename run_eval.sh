@@ -4,7 +4,7 @@ set -ex
 
 . ./path.sh
 
-python3 generate_data_for_eval.py  \
+python3 scripts/generate_data_for_eval.py  \
 		--trans-SAE-path $EPADB_ROOT/transcriptionsSAE.txt  \
 		--trans-complete-path $EPADB_ROOT/trans_complete.txt  \
 		--textgrids-list 'textgrid_list' \
