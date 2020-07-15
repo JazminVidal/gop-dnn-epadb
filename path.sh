@@ -1,5 +1,5 @@
-export KALDI_ROOT=../kaldi
-export EPADB_ROOT=/Users/lferrer/pronscore/epadb
+export KALDI_ROOT=/Users/jazmin/Desktop/kaldi
+export EPADB_ROOT=/Users/jazmin/Desktop/epadb
 
 [ -f $KALDI_ROOT/tools/env.sh ] && . $KALDI_ROOT/tools/env.sh
 

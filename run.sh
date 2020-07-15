@@ -23,7 +23,7 @@ for d in $model $ivectors $lang $expdir; do
 done
 
 # Global configurations
-stage=5
+stage=6
 nj=1
 
 # Symbolic link to local folder in kaldi gop
@@ -73,20 +73,33 @@ if [ $stage -le 4 ]; then
 	"ark,t:gunzip -c $expdir/align/ali-pure-phone.JOB.gz|" \
 	"ark:$expdir/probs/output.JOB.ark" \
 	"ark,t:$expdir/gop.JOB.txt" "ark,t:$expdir/phonefeat.JOB.txt"   || exit 1;
-    
+
     echo "Done computing gop, results are in: $expdir/gop.<JOB>.txt in posterior format (see Readme file)."
 
     cat $expdir/gop.*.txt > $expdir/gop.txt
 fi
 
+
 if [ $stage -le 5 ]; then
 
-    python3 generate_data_for_eval.py  \
+    python3 scripts/generate_data_for_eval.py  \
         --trans-SAE-file $EPADB_ROOT/transcriptionsSAE.txt  \
         --trans-complete-file $EPADB_ROOT/trans_complete.txt  \
         --gop-file $expdir/gop.txt \
         --phones-pure-file $expdir/align/phones-pure.txt \
         --labels-dir $labels \
         --output-dir $expdir/gop_with_labels > $expdir/log/create_labels
+
+fi
+
+
+
+if [ $stage -le 6 ]; then
+
+    python3 scripts/generate_plots.py  \
+        --data-for-eval-dir $expdir/gop_with_labels/ \
+        --output-dir $expdir/gop_with_labels
+
+    echo "Done plotting ROCs and histograms, results are in: $expdir/gop_with_labels"
 
 fi
