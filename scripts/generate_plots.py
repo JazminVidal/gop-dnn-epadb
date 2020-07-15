@@ -72,9 +72,9 @@ def plot(scores, output_dir):
             ax1.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
 
             
-            #sns.kdeplot(tar,color='b',label=label_histogram1)
-            #sns.kdeplot(non,color='g',label=label_histogram2)
-            #ax2.legend()
+            sns.kdeplot(tar,color='b',label=label_histogram1, bw=1.5)
+            sns.kdeplot(non,color='g',label=label_histogram2, bw=1.5)
+            ax2.legend()
 
             fig.savefig(output_dir + '/' + 'ROC_plot' + phone + '.pdf')
             plt.show()
