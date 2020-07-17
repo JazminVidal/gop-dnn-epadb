@@ -264,11 +264,7 @@ if __name__ == '__main__':
                     best_trans_corr = num_correct
                     best_trans = trans_idx
 
-            #else:
-            #    print(trans)
-            #    print(annot_manual)
-            #    #continue
-            #    raise Exception("Transcription length does not match annotation length (%d != %d)"%(len(trans), len(annot)))
+            
 
         best_trans1 = -1
         best_trans_corr = 0
