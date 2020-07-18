@@ -48,7 +48,9 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 3. [The EpaDB database](https://drive.google.com/file/d/1Fp1LOhTMGPNO_qA5V97XNSBxbjct9P34/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/13ylpy846hq3d7p/epadb.zip?dl=0)
 
-4.
+4. [Librispeech ASR model] (https://kaldi-asr.org/models/m13)
+
+
 
 ## How to install
 
@@ -59,13 +61,20 @@ To install this repository, do the following steps:
 git clone https://github.com/JazminVidal/gop-dnn-epadb.git
 ```
 
-2. Check the requirements.txt file:
+2. Download Librispeech ASR acoustic model from Kaldi into the repository:
+
+```
+wget https://kaldi-asr.org/models/13/0013_librispeech_s5.tar.gz
+tar -zxvf 0013_librispeech_s5.tar.gz
+```
+
+3. Check the requirements.txt file:
 
 ```
 pip install -r requirements.txt
 ```
 
-3. Set the following lines in the file gop-dnn-epadb/path.sh:
+4. Set the following lines in the file gop-dnn-epadb/path.sh:
 ```
 export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 export EPADB_ROOT=path/to/where/epadb/is
@@ -76,13 +85,13 @@ export EPADB_ROOT=path/to/where/epadb/is
 1. Run data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's, extracts i-vectors and creates temporary folders from EpaDB files.
 
 ```
-./data_preparation.sh
+./01_data_preparation.sh
 ```
 
 2. Run run.sh to compute alignments a goodness of pronunciation scores. Results will be stored under exp folder. You should expect to find alignments, gop and prob files, among others.
 
 ```
-./run.sh
+./02_run.sh
 ```
 
 3. Run the evaluation script to compute labels for EpaDB and match them to the gop results. Labels are computed by comparing the manual annotations in annotations_1 to all the possible correct transcriptions in trans_complete file. Alignments from different systems not always coincide, to sort this problem out the script also matches EpaDB alignments with those computed along the gop script. Results are stored under epadb/test/gop_with_labels folder. You should expect to obtain a pickle file with all the information necessary to compute metrics and a folder with EpaDB labels. An additional script plots ROCs and histograms for every phone.

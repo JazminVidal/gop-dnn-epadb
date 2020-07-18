@@ -48,16 +48,6 @@ done
 utils/fix_data_dir.sh $expdir
 
 
-# Download language model and acoustic model from Kaldi. For more details see: https://kaldi-asr.org/models/m13
-
-if [ ! -d 0013_librispeech_v1 ]; then
-
-    echo 'Downloading models from Kaldi. This will take some time, depending on your network speed.'
-
-    wget https://kaldi-asr.org/models/13/0013_librispeech_s5.tar.gz
-    tar -zxvf 0013_librispeech_s5.tar.gz 
-
-fi
 
 # Extract the MFCC features for all the wavs
 
@@ -76,5 +66,3 @@ steps/online/nnet2/extract_ivectors_online.sh --cmd "run.pl" --nj 30  \
     $expdir/ivectors
 
 echo 'Finished data preparation and feature extraction!'
-
-
