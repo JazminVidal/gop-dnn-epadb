@@ -32,9 +32,8 @@ This toolkit is meant to facilitate experimentation with Epa-DB by allowing user
 Epa-DB, is a database of non-native English speech by argentinian speakers of Spanish. It is intended for research on mispronunciation detection
 and development of pronunciation assessment systems.
 The database includes recordings from 50 non-native speakers of English, 25 male and 25 female, whose first language (L1) is Spanish from Argentina (mainly of the Rio de la Plata dialect).
-Each speaker recorded 64 short Englsh phrases phonetically balanced and specifically designed to globally contain all the sounds difficult to pronounce for the target population.
+Each speaker recorded 64 short English phrases phonetically balanced and specifically designed to globally contain all the sounds difficult to pronounce for the target population.
 All recordings were annotated at phone level by two expert raters.
-For the sake of simplicity we followed, when possible, the organization given by the L2-ARCTIC corpus.
 
 For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1lYQwehQ28vvayv1GABASIlMhiSTuHnU9/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
