@@ -44,11 +44,11 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 1. [Kaldi](http://kaldi-asr.org/) installed.
 
-2. [TextGrid managing library] installed using [pip](https://pypi.org/project/praat-textgrids/).
+2. TextGrid managing library installed using pip. Instructions at this [link](https://pypi.org/project/praat-textgrids/).
 
-3. [The EpaDB database](https://drive.google.com/file/d/1Fp1LOhTMGPNO_qA5V97XNSBxbjct9P34/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/13ylpy846hq3d7p/epadb.zip?dl=0)
+3. [The EpaDB database](https://drive.google.com/file/d/1Fp1LOhTMGPNO_qA5V97XNSBxbjct9P34/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/13ylpy846hq3d7p/epadb.zip?dl=0).
 
-4. [Librispeech ASR model] (https://kaldi-asr.org/models/m13)
+4. [Librispeech ASR model](https://kaldi-asr.org/models/m13)
 
 
 
@@ -61,20 +61,20 @@ To install this repository, do the following steps:
 git clone https://github.com/JazminVidal/gop-dnn-epadb.git
 ```
 
-2. Download Librispeech ASR acoustic model from Kaldi into the repository:
+2. Download Librispeech ASR acoustic model from Kaldi a move it or link it inside the top directory of the repository:
 
 ```
 wget https://kaldi-asr.org/models/13/0013_librispeech_s5.tar.gz
 tar -zxvf 0013_librispeech_s5.tar.gz
 ```
 
-3. Check the requirements.txt file:
+3. Install the requirements:
 
 ```
 pip install -r requirements.txt
 ```
 
-4. Set the following lines in the file gop-dnn-epadb/path.sh:
+4. Set the following lines in the file path.sh inside the repository's top directory:
 ```
 export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 export EPADB_ROOT=path/to/where/epadb/is
@@ -88,13 +88,13 @@ export EPADB_ROOT=path/to/where/epadb/is
 ./01_data_preparation.sh
 ```
 
-2. Run run.sh to compute alignments a goodness of pronunciation scores. Results will be stored under exp folder. You should expect to find alignments, gop and prob files, among others.
+2. Run run.sh to compute alignments and goodness of pronunciation scores. Results will be stored under exp folder. You should expect to find alignments, gop and prob files, among others.
 
 ```
 ./02_run.sh
 ```
 
-3. Run the evaluation script to compute labels for EpaDB and match them to the gop results. Labels are computed by comparing the manual annotations in annotations_1 to all the possible correct transcriptions in trans_complete file. Alignments from different systems not always coincide, to sort this problem out the script also matches EpaDB alignments with those computed along the gop script. Results are stored under epadb/test/gop_with_labels folder. You should expect to obtain a pickle file with all the information necessary to compute metrics and a folder with EpaDB labels. An additional script plots ROCs and histograms for every phone.
+3. Run the evaluation script to compute labels for EpaDB and match them to the gop scores. Labels are computed by comparing the manual annotations in annotations_1 to all the possible correct transcriptions in trans_complete file. Alignments from different systems not always coincide, to sort this problem out the script also matches EpaDB alignments with those computed along the gop script. Results are stored under epadb/test/gop_with_labels folder. You should expect to obtain a pickle file with all the information necessary to compute metrics and a folder with EpaDB labels. An final script called by run_eval.sh plots ROCs and histograms for every phone.
 
 
 ```
@@ -121,8 +121,6 @@ Results are in posterior format, where each pair stands for [pure-phone-index go
 
 The row number is the phone number of the utterance. In this case, it is 17. The column number is 2 * (pure-phone set size), as the feature is consist of LLR + LPR.
 The phone-level features can be used to train a classifier with human labels. See Hu's paper for detail.
-
-3. -5 is set as a universal empirical threshold. You can also determine multiple phone dependent thresholds based on the human-labeled mispronunciation data.
 
 
 ## References
