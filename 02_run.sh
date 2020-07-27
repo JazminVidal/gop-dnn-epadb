@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -ex
+#!/usr/bin/env bash -e
 
 # This script calculates Goodness of Pronunciation (GOP) scores and
 # extract phone-level pronunciation feature for mispronunciations detection
@@ -13,8 +13,8 @@
 
 modeldir=0013_librispeech_v1
 model=$modeldir/exp/chain_cleaned/tdnn_1d_sp
-expdir=epadb/test
-labels=epadb/labels
+expdir=exp_epadb/test
+labels=exp_epadb/labels
 ivectors=$expdir/ivectors
 lang=$modeldir/data/lang_chain
 
@@ -23,7 +23,7 @@ for d in $model $ivectors $lang $expdir; do
 done
 
 # Global configurations
-stage=1
+stage=${1:-1}
 nj=1
 
 # Symbolic link to local folder in kaldi gop
@@ -83,7 +83,7 @@ fi
 if [ $stage -le 5 ]; then
 
     python3 scripts/generate_data_for_eval.py  \
-        --trans-complete-file $EPADB_ROOT/trans_complete.txt  \
+        --transcription-file $EPADB_ROOT/reference_transcriptions.txt  \
         --gop-file $expdir/gop.txt \
         --phones-pure-file $expdir/align/phones-pure.txt \
         --labels-dir $labels \
@@ -92,12 +92,11 @@ if [ $stage -le 5 ]; then
 fi
 
 
-
 if [ $stage -le 6 ]; then
 
     python3 scripts/generate_plots.py  \
         --data-for-eval-dir $expdir/gop_with_labels/ \
-        --output-dir $expdir/gop_with_labels
+        --output-dir $expdir/plots
 
     echo "Done plotting ROCs and histograms, results are in: $expdir/gop_with_labels"
 
