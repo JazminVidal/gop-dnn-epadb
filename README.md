@@ -37,7 +37,7 @@ All recordings were annotated at phone level by two expert raters.
 
 For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1JCTHSF97V7M9A8FiPzf1YurLcZ5H5mFS/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
-If you are only looking for the EpaDB corpus, you can download it from this [link]().
+If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/12wD6CzVagrwZQcMTgTxw2_7evjZmPQym/view?usp=sharing).
 
 ## Prerequisites
 
