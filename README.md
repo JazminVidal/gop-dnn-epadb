@@ -1,6 +1,6 @@
 # Kaldi GOP-DNN on Epa-DB
 
-This repository has the tools to run a Kaldi-based GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina. It uses a TDNN-F chain model which is downloaded from the Kaldi website.
+This repository has the tools to run a Kaldi-based GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina. It uses a TDNN-F chain model which is downloaded from the Kaldi website and Kaldi official GOP-DNN recipe.
 
 If you use this code or database, please cite the following paper:
 
@@ -35,9 +35,9 @@ The database includes recordings from 50 non-native speakers of English, 25 male
 Each speaker recorded 64 short English phrases phonetically balanced and specifically designed to globally contain all the sounds difficult to pronounce for the target population.
 All recordings were annotated at phone level by two expert raters.
 
-For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1lYQwehQ28vvayv1GABASIlMhiSTuHnU9/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
+For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1JCTHSF97V7M9A8FiPzf1YurLcZ5H5mFS/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
-If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/1Fp1LOhTMGPNO_qA5V97XNSBxbjct9P34/view?usp=sharing).
+If you are only looking for the EpaDB corpus, you can download it from this [link]().
 
 ## Prerequisites
 
@@ -45,7 +45,7 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 2. TextGrid managing library installed using pip. Instructions at this [link](https://pypi.org/project/praat-textgrids/).
 
-3. [The EpaDB database](https://drive.google.com/file/d/1Fp1LOhTMGPNO_qA5V97XNSBxbjct9P34/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/13ylpy846hq3d7p/epadb.zip?dl=0).
+3. [The EpaDB database](https://drive.google.com/file/d/12wD6CzVagrwZQcMTgTxw2_7evjZmPQym/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/rqw921442z1tvd8/epadb.zip?dl=0).
 
 4. [Librispeech ASR model](https://kaldi-asr.org/models/m13)
 
@@ -60,7 +60,7 @@ To install this repository, do the following steps:
 git clone https://github.com/JazminVidal/gop-dnn-epadb.git
 ```
 
-2. Download Librispeech ASR acoustic model from Kaldi a move it or link it inside the top directory of the repository:
+2. Download Librispeech ASR acoustic model from Kaldi and move it or link it inside the top directory of the repository:
 
 ```
 wget https://kaldi-asr.org/models/13/0013_librispeech_s5.tar.gz
@@ -101,7 +101,7 @@ export EPADB_ROOT=path/to/where/epadb/is
 ```
 ## Notes on Kaldi-DNN-GOP
 
-Notes taken from run.sh file in Kaldi DNN-GOP official recipe.
+Notes taken from run.sh file in Kaldi DNN-GOP official recipe:
 
 1. The outputs of the binary compute-gop are the GOPs and the phone-level features. An example of the GOP result looks like:
 
@@ -109,7 +109,7 @@ Notes taken from run.sh file in Kaldi DNN-GOP official recipe.
                                   [ 21 -0.2897284 ] [ 5 0 ] [ 31 0 ] [ 33 0 ] [ 3 -11.43557 ] [ 25 0 ] \
                                   [ 16 0 ] [ 30 -0.03224623 ] [ 5 0 ] [ 25 0 ] [ 33 0 ] [ 1 0 ]
 
-Results are in posterior format, where each pair stands for [pure-phone-index gop-value]. For example, [ 27 -5.382001 ] means the GOP of the pure-phone 27 (it corresponds to the phone "OW", according to "phones-pure.txt") is -5.382001, indicating the audio segment of this phone should be a mispronunciation.
+Results are in posterior format, where each pair stands for [pure-phone-index gop-value]. For example, [ 27 -5.382001 ] means the GOP of the pure-phone 27 (it corresponds to the phone "OW", according to "phones-pure.txt") is -5.382001.
 
 2. The phone-level features are in matrix format:
 
@@ -118,8 +118,7 @@ Results are in posterior format, where each pair stands for [pure-phone-index go
                                      ...
                                      ... ]
 
-The row number is the phone number of the utterance. In this case, it is 17. The column number is 2 * (pure-phone set size), as the feature is consist of LLR + LPR.
-The phone-level features can be used to train a classifier with human labels. See Hu's paper for detail.
+The row number is the phone number of the utterance. In this case, it is 17. The column number is 2 * (pure-phone set size), as the feature is consist of LLR + LPR. The phone-level features can be used to train a classifier with human labels. See Hu's paper for detail.
 
 
 ## References
