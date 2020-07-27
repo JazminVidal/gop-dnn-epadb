@@ -74,6 +74,9 @@ pip install -r requirements.txt
 ```
 
 4. Set the following lines in the file path.sh inside the repository's top directory:
+
+Path to Epa-DB should be an absolute path. 
+
 ```
 export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 export EPADB_ROOT=path/to/where/epadb/is
@@ -81,7 +84,7 @@ export EPADB_ROOT=path/to/where/epadb/is
 
 ## How to run
 
-1. Run 01_data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's, extracts i-vectors and creates temporary folders from EpaDB files.
+1. Run 01_data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's, extracts i-vectors and creates temporary folders from Epa-DB files.
 
 ```
 ./01_data_preparation.sh
