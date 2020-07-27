@@ -81,24 +81,18 @@ export EPADB_ROOT=path/to/where/epadb/is
 
 ## How to run
 
-1. Run data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's, extracts i-vectors and creates temporary folders from EpaDB files.
+1. Run 01_data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's, extracts i-vectors and creates temporary folders from EpaDB files.
 
 ```
 ./01_data_preparation.sh
 ```
 
-2. Run run.sh to compute alignments and goodness of pronunciation scores. Results will be stored under exp folder. You should expect to find alignments, gop and prob files, among others.
+2. The 02_run.sh script computes alignments and goodness of pronunciation scores and stores the results under epadb/test folder. Results include alignments and gop and prob files. The script also serves to compute labels for Epa-DB by comparing the manual annotations in annotations_1 to all the possible reference transcriptions in the trans_complete file. Alignments from different systems not always coincide, to sort this problem out the script also matches EpaDB alignments with those computed along the gop script. Results are stored under epadb/test/gop_with_labels folder. You should expect to obtain a pickle file with all the information necessary to compute metrics and a folder with EpaDB labels. An final script called by run_eval.sh plots ROCs and histograms for every phone.
 
 ```
 ./02_run.sh
 ```
 
-3. Run the evaluation script to compute labels for EpaDB and match them to the gop scores. Labels are computed by comparing the manual annotations in annotations_1 to all the possible correct transcriptions in trans_complete file. Alignments from different systems not always coincide, to sort this problem out the script also matches EpaDB alignments with those computed along the gop script. Results are stored under epadb/test/gop_with_labels folder. You should expect to obtain a pickle file with all the information necessary to compute metrics and a folder with EpaDB labels. An final script called by run_eval.sh plots ROCs and histograms for every phone.
-
-
-```
-./run_eval.sh
-```
 ## Notes on Kaldi-DNN-GOP
 
 Notes taken from run.sh file in Kaldi DNN-GOP official recipe:
@@ -117,8 +111,6 @@ Results are in posterior format, where each pair stands for [pure-phone-index go
                                      -8.584108 -7.629755 -13.04877 ...
                                      ...
                                      ... ]
-
-The row number is the phone number of the utterance. In this case, it is 17. The column number is 2 * (pure-phone set size), as the feature is consist of LLR + LPR. The phone-level features can be used to train a classifier with human labels. See Hu's paper for detail.
 
 
 ## References
