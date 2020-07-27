@@ -23,7 +23,7 @@ for d in $model $ivectors $lang $expdir; do
 done
 
 # Global configurations
-stage=6
+stage=1
 nj=1
 
 # Symbolic link to local folder in kaldi gop
