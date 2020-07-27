@@ -83,7 +83,6 @@ fi
 if [ $stage -le 5 ]; then
 
     python3 scripts/generate_data_for_eval.py  \
-        --trans-SAE-file $EPADB_ROOT/transcriptionsSAE.txt  \
         --trans-complete-file $EPADB_ROOT/trans_complete.txt  \
         --gop-file $expdir/gop.txt \
         --phones-pure-file $expdir/align/phones-pure.txt \
