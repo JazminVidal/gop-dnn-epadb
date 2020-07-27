@@ -213,7 +213,6 @@ def match_labels2gop(logid, trans_zero, trans_manual, trans_auto, labels, gop_sc
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--trans-complete-file', dest='trans_complete_path', help='File with phonetic transcriptions of each of the phrases', default=None)
-    parser.add_argument('--trans-SAE-file', dest='trans_SAE_path', help='File with phonetic transcriptions of each of the phrases', default=None)
     parser.add_argument('--labels-dir', dest='labels_dir', help='Directory with textgrid files with annotations', default=None)
     parser.add_argument('--output-dir', dest='output_dir', help='Output dir', default=None)
     parser.add_argument('--gop-file', dest='gop_path', help='File with gop results', default=None)
