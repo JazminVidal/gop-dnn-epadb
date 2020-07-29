@@ -45,7 +45,7 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 2. TextGrid managing library installed using pip. Instructions at this [link](https://pypi.org/project/praat-textgrids/).
 
-3. [The EpaDB database](https://drive.google.com/file/d/12wD6CzVagrwZQcMTgTxw2_7evjZmPQym/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/rqw921442z1tvd8/epadb.zip?dl=0).
+3. [The EpaDB database](https://drive.google.com/file/d/12wD6CzVagrwZQcMTgTxw2_7evjZmPQym/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/m931q0vch1qhzzx/epadb.zip?dl=0).
 
 4. [Librispeech ASR model](https://kaldi-asr.org/models/m13)
 
