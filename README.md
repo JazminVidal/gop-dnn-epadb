@@ -35,7 +35,7 @@ The database includes recordings from 30 non-native speakers of English, 15 male
 Each speaker recorded 64 short English phrases phonetically balanced and specifically designed to globally contain all the sounds difficult to pronounce for the target population.
 All recordings were annotated at phone level by two expert raters.
 
-For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1JCTHSF97V7M9A8FiPzf1YurLcZ5H5mFS/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
+For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1jEvqeAXTLKRAYJXTQAvfsc3Qye6vOb5o/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
 If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/12wD6CzVagrwZQcMTgTxw2_7evjZmPQym/view?usp=sharing).
 
@@ -45,7 +45,7 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 2. TextGrid managing library installed using pip. Instructions at this [link](https://pypi.org/project/praat-textgrids/).
 
-3. [The EpaDB database](https://drive.google.com/file/d/12wD6CzVagrwZQcMTgTxw2_7evjZmPQym/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/m931q0vch1qhzzx/epadb.zip?dl=0).
+3. [The EpaDB database](https://drive.google.com/file/d/1jEvqeAXTLKRAYJXTQAvfsc3Qye6vOb5o/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/m931q0vch1qhzzx/epadb.zip?dl=0).
 
 4. [Librispeech ASR model](https://kaldi-asr.org/models/m13)
 
