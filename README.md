@@ -2,7 +2,7 @@
 
 This repository has the tools to run a Kaldi-based GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina. It uses a TDNN-F chain model which is downloaded from the Kaldi website and Kaldi's official GOP-DNN recipe.
 
-If you use this code or database, please cite the following paper:
+If you use this code or the Epa database, please cite the following paper:
 
 *J. Vidal, L. Ferrer, L. Brambilla, "EpaDB: a database for the development of pronunciation assessment systems", [isca-speech](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)*
 
@@ -33,7 +33,7 @@ Epa-DB, is a database of non-native English speech by argentinian speakers of Sp
 and development of pronunciation assessment systems.
 The database includes recordings from 30 non-native speakers of English, 15 male and 15 female, whose first language (L1) is Spanish from Argentina (mainly of the Rio de la Plata dialect).
 Each speaker recorded 64 short English phrases phonetically balanced and specifically designed to globally contain all the sounds difficult to pronounce for the target population.
-All recordings were annotated at phone level by two expert raters.
+All recordings were annotated at phone level by expert raters.
 
 For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1jEvqeAXTLKRAYJXTQAvfsc3Qye6vOb5o/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
 
@@ -90,7 +90,7 @@ export EPADB_ROOT=path/to/where/epadb/is
 ./01_data_preparation.sh
 ```
 
-2. The 02_run.sh script computes alignments and goodness of pronunciation scores and stores the results under epadb/test folder. Results include alignments and gop and prob files. The script also serves to compute labels for Epa-DB by comparing the manual annotations in annotations_1 to all the possible reference transcriptions in the trans_complete file. Alignments from different systems not always coincide, to sort this problem out the script also matches EpaDB alignments with those computed along the gop script. Results are stored under epadb/test/gop_with_labels folder. You should expect to obtain a pickle file with all the information necessary to compute metrics and a folder with EpaDB labels. An final script called by run_eval.sh plots ROCs and histograms for every phone.
+2. The 02_run.sh script computes alignments and goodness of pronunciation scores and stores the results under the exp_epadb/test folder. Results include alignments, files with the posteriors from the DNN (in probs), and files with the final gop scores (in gop). The script computes labels for Epa-DB by comparing the manual annotations in annotations_1 to all the possible reference transcriptions in the trans_complete file, aligning the resulting labels to the gop scores. Results are stored under exp_epadb/test/gop_with_labels folder. Finally, the script generates a folder with ROC curves for each phone.
 
 ```
 ./02_run.sh
@@ -98,15 +98,15 @@ export EPADB_ROOT=path/to/where/epadb/is
 
 ## Notes on Kaldi-DNN-GOP
 
-Notes taken from run.sh file in Kaldi DNN-GOP official recipe:
+Notes adapted from run.sh file in Kaldi DNN-GOP official recipe:
 
-1. The outputs of the binary compute-gop are the GOPs and the phone-level features. An example of the GOP result looks like:
+1. The outputs of the binary compute-gop are the GOPs and the phone-level features (which we are not using). An example of the GOP result looks like:
 
                     4446-2273-0031 [ 1 0 ] [ 12 0 ] [ 27 -5.382001 ] [ 40 -13.91807 ] [ 1 -0.2555897 ] \
                                   [ 21 -0.2897284 ] [ 5 0 ] [ 31 0 ] [ 33 0 ] [ 3 -11.43557 ] [ 25 0 ] \
                                   [ 16 0 ] [ 30 -0.03224623 ] [ 5 0 ] [ 25 0 ] [ 33 0 ] [ 1 0 ]
 
-Results are in posterior format, where each pair stands for [pure-phone-index gop-value]. For example, [ 27 -5.382001 ] means the GOP of the pure-phone 27 (it corresponds to the phone "OW", according to "phones-pure.txt") is -5.382001.
+Results are in posterior format, where each pair stands for [pure-phone-index gop-value]. For example, [ 27 -5.382001 ] means the GOP of the pure-phone 27 (which corresponds to the phone "OW", according to "phones-pure.txt") is -5.382001.
 
 2. The phone-level features are in matrix format:
 
