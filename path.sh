@@ -1,5 +1,7 @@
-export KALDI_ROOT=/Users/jazmin/Desktop/kaldi
-export EPADB_ROOT=/Users/jazmin/Desktop/epadb
+export KALDI_ROOT=/home/marcelo/Desktop/pasantia/kaldi-master
+export EPADB_ROOT=/home/marcelo/Desktop/pasantia/corridas_paper/epadb
+export MODEL_ROOT=/home/marcelo/Desktop/pasantia/corridas_paper/gop-dnn-epadb/0013_librispeech_v1
+
 
 [ -f $KALDI_ROOT/tools/env.sh ] && . $KALDI_ROOT/tools/env.sh
 

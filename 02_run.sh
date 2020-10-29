@@ -12,11 +12,13 @@
 # This script assumes the following paths exist.
 
 modeldir=0013_librispeech_v1
-model=$modeldir/exp/chain_cleaned/tdnn_1d_sp
+model=$MODEL_ROOT/exp/chain_cleaned/tdnn_1d_sp
+modeltype=final_original.mdl
 expdir=exp_epadb/test
 labels=exp_epadb/labels
 ivectors=$expdir/ivectors
 lang=$modeldir/data/lang_chain
+
 
 for d in $model $ivectors $lang $expdir; do
   [ ! -d $d ] && echo "$0: no such path $d" && exit 1;
@@ -30,6 +32,9 @@ nj=1
 
 ln -fs $KALDI_ROOT/egs/gop/s5/local
 
+#Use selected model type for first stage
+ln -fs $model/$modeltype $model/final.mdl
+
 if [ $stage -le 1 ]; then
 
     echo 'Computing posteriors from the DNN'
@@ -37,6 +42,9 @@ if [ $stage -le 1 ]; then
     steps/nnet3/compute_output.sh --cmd run.pl --nj $nj \
 	--online-ivector-dir $ivectors $expdir $model $expdir/probs
 fi
+
+#Use original head for all next stages
+ln -fs $model/final_original.mdl $model/final.mdl
 
 if [ $stage -le 2 ]; then
 
