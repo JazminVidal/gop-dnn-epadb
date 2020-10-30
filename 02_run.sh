@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash -e
 
 # This script calculates Goodness of Pronunciation (GOP) scores and
 # extract phone-level pronunciation feature for mispronunciations detection
