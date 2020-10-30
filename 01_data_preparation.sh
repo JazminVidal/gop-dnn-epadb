@@ -7,7 +7,9 @@ ln -fs $KALDI_ROOT/egs/wsj/s5/utils .
 ln -fs $KALDI_ROOT/src .
 
 data=exp_epadb
-expdir=$data/test
+head=original
+normtype=max
+expdir=$data/test_${normtype}_$head
 
 # This script takes epadb waveforms and transcriptions and creates a temporal directory with .wav and .lab files to extract features.
 # In the end you should expect to have wav.scp, utt2spk, spk2utt and text files in data/test folder.

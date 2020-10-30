@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/bin/bash
 
 # This script calculates Goodness of Pronunciation (GOP) scores and
 # extract phone-level pronunciation feature for mispronunciations detection
@@ -13,8 +13,10 @@
 
 modeldir=0013_librispeech_v1
 model=$MODEL_ROOT/exp/chain_cleaned/tdnn_1d_sp
-modeltype=final_original.mdl
-expdir=exp_epadb/test
+head=original
+normtype=max
+modeltype=final_$head.mdl
+expdir=exp_epadb/test_${normtype}_$head
 labels=exp_epadb/labels
 ivectors=$expdir/ivectors
 lang=$modeldir/data/lang_chain
@@ -26,6 +28,7 @@ done
 
 # Global configurations
 stage=${1:-1}
+stage=4
 nj=1
 
 # Symbolic link to local folder in kaldi gop
@@ -76,8 +79,18 @@ if [ $stage -le 4 ]; then
 
     echo 'Computing gop'
 
+    normoption="--max=false --norm=false"
+    if [[ $normtype==max ]]; then
+        normoption="--max=true --norm=false"
+    fi
+
+    if [[ $normtype==norm ]]; then
+        normoption="--max=false --norm=true"
+    fi
+
+
     run.pl JOB=1:$nj $expdir/log/compute_gop.JOB.log \
-	compute-gop --phone-map=$expdir/align/phone-to-pure-phone.int $model/final.mdl \
+	compute-gop --phone-map=$expdir/align/phone-to-pure-phone.int $normoption $model/final.mdl \
 	"ark,t:gunzip -c $expdir/align/ali-pure-phone.JOB.gz|" \
 	"ark:$expdir/probs/output.JOB.ark" \
 	"ark,t:$expdir/gop.JOB.txt" "ark,t:$expdir/phonefeat.JOB.txt"   || exit 1;
