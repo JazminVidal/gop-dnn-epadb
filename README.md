@@ -2,6 +2,8 @@
 
 This repository has the tools to run a Kaldi-based GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina. It uses a TDNN-F chain model which is downloaded from the Kaldi website and Kaldi's official GOP-DNN recipe.
 
+It also provides a modified version of Kaldi's compute-gop.cc binary that allows to compute to different types of normalizations plus a modified version of the TDNN-F model that uses a different head. Both, head and normalization type, are set as parameters in the 01_run.sh script.
+
 If you use this code or the Epa database, please cite the following paper:
 
 *J. Vidal, L. Ferrer, L. Brambilla, "EpaDB: a database for the development of pronunciation assessment systems", [isca-speech](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)*
@@ -31,13 +33,13 @@ If you use this code or the Epa database, please cite the following paper:
 This toolkit is meant to facilitate experimentation with Epa-DB by allowing users to run a state-of-the-art baseline system on it.
 Epa-DB, is a database of non-native English speech by argentinian speakers of Spanish. It is intended for research on mispronunciation detection
 and development of pronunciation assessment systems.
-The database includes recordings from 30 non-native speakers of English, 15 male and 15 female, whose first language (L1) is Spanish from Argentina (mainly of the Rio de la Plata dialect).
+The database includes recordings from 50 non-native speakers of English, 25 male and 25 female, whose first language (L1) is Spanish from Argentina (mainly of the Rio de la Plata dialect).
 Each speaker recorded 64 short English phrases phonetically balanced and specifically designed to globally contain all the sounds difficult to pronounce for the target population.
 All recordings were annotated at phone level by expert raters.
 
-For more information on the database, please refer to the [documentation](https://drive.google.com/file/d/1jEvqeAXTLKRAYJXTQAvfsc3Qye6vOb5o/view?usp=sharing) or [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)
+For more information on the database, please refer to the [documentation]() or [publication]()
 
-If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/12wD6CzVagrwZQcMTgTxw2_7evjZmPQym/view?usp=sharing).
+If you are only looking for the EpaDB corpus, you can download it from this [link]().
 
 ## Prerequisites
 
@@ -45,10 +47,11 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 2. TextGrid managing library installed using pip. Instructions at this [link](https://pypi.org/project/praat-textgrids/).
 
-3. [The EpaDB database](https://drive.google.com/file/d/1jEvqeAXTLKRAYJXTQAvfsc3Qye6vOb5o/view?usp=sharing) downloaded. Alternative [link](https://www.dropbox.com/s/m931q0vch1qhzzx/epadb.zip?dl=0).
+3. [The EpaDB database](https://www.dropbox.com/s/lamzwhi67tpptch/epadb_30.zip?dl=0) downloaded.
 
 4. [Librispeech ASR model](https://kaldi-asr.org/models/m13)
 
+5. [Librispeech ASR model Xent head](https://www.dropbox.com/s/u0mp49e9kuwjbxe/final_xent.mdl?dl=0)
 
 
 ## How to install
@@ -67,20 +70,32 @@ wget https://kaldi-asr.org/models/13/0013_librispeech_s5.tar.gz
 tar -zxvf 0013_librispeech_s5.tar.gz
 ```
 
-3. Install the requirements:
+3. go to 0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp and change final.mdl name to final_original.mdl
+
+
+4. Download Librispeech ASR Xent acoustic model from the link in prerequisites and move it to 0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp
+
+
+5. Install the requirements:
 
 ```
 pip install -r requirements.txt
 ```
 
-4. Set the following lines in the file path.sh inside the repository's top directory:
+6. Set the following lines in the file path.sh inside the repository's top directory:
 
-Path to Epa-DB should be an absolute path. 
+Path to Epa-DB should be an absolute path.
 
 ```
 export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
 export EPADB_ROOT=path/to/where/epadb/is
+export MODEL_ROOT=path/to/where/final.mdl/is
 ```
+
+7. Move compute-gop.cc file to kaldi/src/bin/
+
+8. Run 00_recompile.sh
+
 
 ## How to run
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/bin/bash -e
 
 # This script calculates Goodness of Pronunciation (GOP) scores and
 # extract phone-level pronunciation feature for mispronunciations detection
@@ -22,12 +22,12 @@ ivectors=$expdir/ivectors
 lang=$MODEL_ROOT/data/lang_chain
 
 
+
 for d in $model $ivectors $lang $expdir; do
   [ ! -d $d ] && echo "$0: no such path $d" && exit 1;
 done
 
 # Global configurations
-stage=${1:-1}
 stage=1
 nj=1
 
@@ -80,11 +80,11 @@ if [ $stage -le 4 ]; then
     echo 'Computing gop'
 
     normoption="--max=false --norm=false"
-    if [[ $normtype==max ]]; then
+    if [[ $normtype == max ]]; then
         normoption="--max=true --norm=false"
     fi
 
-    if [[ $normtype==norm ]]; then
+    if [[ $normtype == norm ]]; then
         normoption="--max=false --norm=true"
     fi
 
@@ -103,12 +103,14 @@ fi
 
 if [ $stage -le 5 ]; then
 
+
     python3 scripts/generate_data_for_eval.py  \
         --transcription-file $EPADB_ROOT/reference_transcriptions.txt  \
         --gop-file $expdir/gop.txt \
         --phones-pure-file $expdir/align/phones-pure.txt \
-        --labels-dir $labels \
-        --output-dir $expdir/gop_with_labels > $expdir/log/create_labels
+        --reference-file $EPADB_ROOT \
+        --output-dir $expdir/gop_with_labels \
+        --possible-prons-kaldi alignment_matrix.csv > $expdir/log/create_labels
 
 fi
 
