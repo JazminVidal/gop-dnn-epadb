@@ -39,7 +39,7 @@ All recordings were annotated at phone level by expert raters.
 
 For more information on the database, please refer to the [documentation]() or [publication]()
 
-If you are only looking for the EpaDB corpus, you can download it from this [link]().
+If you are only looking for the EpaDB corpus, you can download it from this [link](https://www.dropbox.com/s/hnbjcaloag6pumc/epadb_30.zip?dl=0).
 
 ## Prerequisites
 
@@ -47,7 +47,7 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 2. TextGrid managing library installed using pip. Instructions at this [link](https://pypi.org/project/praat-textgrids/).
 
-3. [The EpaDB database](https://www.dropbox.com/s/lamzwhi67tpptch/epadb_30.zip?dl=0) downloaded.
+3. [The EpaDB database](https://www.dropbox.com/s/hnbjcaloag6pumc/epadb_30.zip?dl=0) downloaded.
 
 4. [Librispeech ASR model](https://kaldi-asr.org/models/m13)
 
