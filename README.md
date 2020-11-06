@@ -94,22 +94,23 @@ export MODEL_ROOT=path/to/where/final.mdl/is
 
 7. Move compute-gop.cc file to kaldi/src/bin/
 
+
 8. Run 00_recompile.sh
 
 
 ## How to run
 
-1. Run 01_data_preparation.sh to create the necessary directories and files. This script creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's, extracts i-vectors and creates temporary folders from Epa-DB files.
+
+1. Run 
 
 ```
-./01_data_preparation.sh
+01_run_all.sh 
 ```
 
-2. The 02_run.sh script computes alignments and goodness of pronunciation scores and stores the results under the exp_epadb/test folder. Results include alignments, files with the posteriors from the DNN (in probs), and files with the final gop scores (in gop). The script computes labels for Epa-DB by comparing the manual annotations in annotations_1 to all the possible reference transcriptions in the trans_complete file, aligning the resulting labels to the gop scores. Results are stored under exp_epadb/test/gop_with_labels folder. Finally, the script generates a folder with ROC curves for each phone.
+to create the necessary directories and files. This script calls 02_data_preparation.sh that creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's, extracts i-vectors and creates temporary folders from Epa-DB files and calls 03_compute.sh that 
+computes alignments and goodness of pronunciation scores and stores the results under the exp_epadb/test folder. Results include alignments, files with the posteriors from the DNN (in probs), and files with the final gop scores (in gop). The script computes labels for Epa-DB by comparing the manual annotations in annotations_1 to all the possible reference transcriptions in the trans_complete file, aligning the resulting labels to the gop scores. Results are stored under exp_epadb/test/gop_with_labels folder. Finally, the script generates a folder with ROC curves for each phone.
 
-```
-./02_run.sh
-```
+
 
 ## Notes on Kaldi-DNN-GOP
 
