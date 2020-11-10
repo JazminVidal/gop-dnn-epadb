@@ -42,7 +42,7 @@ if [ $stage -le 1 ]; then
 
     echo 'Computing posteriors from the DNN'
 
-    steps/nnet3/compute_output.sh --cmd run.pl --nj $nj \
+    steps/nnet3/compute_output.sh --cmd run.pl --frame_subsampling_factor 1 --nj $nj \
 	--online-ivector-dir $ivectors $expdir $model $expdir/probs
 fi
 
