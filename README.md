@@ -1,10 +1,8 @@
 # Kaldi GOP-DNN on Epa-DB
 
-This repository has the tools to run a Kaldi-based GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina. It uses a TDNN-F chain model which is downloaded from the Kaldi website and Kaldi's official GOP-DNN recipe.
+This repository has the tools to run a Kaldi-based GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina. It uses a TDNN-F chain model downloaded from Kaldi website and Kaldi's official GOP-DNN recipe.
 
-It also provides a modified version of Kaldi's compute-gop.cc binary that allows to compute to different types of normalizations plus a modified version of the TDNN-F model that uses a different head. Both, head and normalization type, are set as parameters in the 01_run.sh script.
-
-If you use this code or the Epa database, please cite the following paper:
+If you use this code or the Epa-DB database, please cite the following paper:
 
 *J. Vidal, L. Ferrer, L. Brambilla, "EpaDB: a database for the development of pronunciation assessment systems", [isca-speech](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)*
 
@@ -35,11 +33,11 @@ Epa-DB, is a database of non-native English speech by argentinian speakers of Sp
 and development of pronunciation assessment systems.
 The database includes recordings from 50 non-native speakers of English, 25 male and 25 female, whose first language (L1) is Spanish from Argentina (mainly of the Rio de la Plata dialect).
 Each speaker recorded 64 short English phrases phonetically balanced and specifically designed to globally contain all the sounds difficult to pronounce for the target population.
-All recordings were annotated at phone level by expert raters.
+All recordings are annotated at phone level by expert raters.
 
-For more information on the database, please refer to the [documentation]() or [publication]()
+For more information on the database, please refer to the [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html). 
 
-If you are only looking for the EpaDB corpus, you can download it from this [link](https://www.dropbox.com/s/hnbjcaloag6pumc/epadb_30.zip?dl=0).
+If you are only looking for the EpaDB corpus, you can download it from this [link]().
 
 ## Prerequisites
 
@@ -47,11 +45,7 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 2. TextGrid managing library installed using pip. Instructions at this [link](https://pypi.org/project/praat-textgrids/).
 
-3. [The EpaDB database](https://www.dropbox.com/s/hnbjcaloag6pumc/epadb_30.zip?dl=0) downloaded.
-
-4. [Librispeech ASR model](https://kaldi-asr.org/models/m13)
-
-5. [Librispeech ASR model Xent head](https://www.dropbox.com/s/u0mp49e9kuwjbxe/final_xent.mdl?dl=0)
+3. [The EpaDB database]() downloaded.
 
 
 ## How to install
