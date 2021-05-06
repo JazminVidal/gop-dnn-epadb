@@ -37,7 +37,7 @@ All recordings are annotated at phone level by expert raters.
 
 For more information on the database, please refer to the [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html). 
 
-If you are only looking for the EpaDB corpus, you can download it from this [link]().
+If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/1sk8mw2I86MitCRfIEm5kwn5hopmMmSIb/view?usp=sharing).
 
 ## Prerequisites
 
@@ -45,9 +45,9 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 2. TextGrid managing library installed using pip. Instructions at this [link](https://pypi.org/project/praat-textgrids/).
 
-3. [The EpaDB database]() downloaded.
+3. [The EpaDB database](https://drive.google.com/file/d/1sk8mw2I86MitCRfIEm5kwn5hopmMmSIb/view?usp=sharing) downloaded.
 
-4. The Librispeech ASR acoustic model. Available at this [link].
+4. The Librispeech ASR acoustic model. Available at this [link] (https://drive.google.com/file/d/1rBUFq1MZW-ajL-yQ_b6KY3iLl80_ELrf/view?usp=sharing).
 
 ## How to install
 
@@ -58,7 +58,7 @@ To install this repository, do the following steps:
 git clone https://github.com/JazminVidal/gop-dnn-epadb.git
 ```
 
-2. Download Librispeech ASR acoustic model and move it or link it inside the top directory of the repository:
+2. Download Librispeech ASR acoustic model and move it or link it inside the top directory of the repository.
 
 
 3. Install the requirements:
@@ -73,7 +73,7 @@ Path to Epa-DB should be an absolute path.
 
 ```
 export KALDI_ROOT=path/to/where/your/kaldi-trunk/is
-export EPADB_ROOT=path/to/where/epadb/is
+export EPADB_ROOT=path/to/where/epadb/train/is
 export MODEL_ROOT=path/to/where/final.mdl/is
 ```
 
