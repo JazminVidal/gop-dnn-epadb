@@ -1,6 +1,6 @@
-export KALDI_ROOT=/Users/jazmin/Desktop/kaldi
-export EPADB_ROOT=/Users/jazmin/Desktop/epadb
-export MODEL_ROOT=/Users/jazmin/Desktop/gop-dnn-epadb/0013_librispeech_v1
+export KALDI_ROOT=/home/jazmin/Programs/kaldi
+export EPADB_ROOT=//home/jazmin/Documents/Data/epadb_30
+export MODEL_ROOT=/home/jazmin/Documents/Exps/2021-interspeech/gop-dnn-epadb/0013_librispeech_v1
 
 
 [ -f $KALDI_ROOT/tools/env.sh ] && . $KALDI_ROOT/tools/env.sh

@@ -42,7 +42,7 @@ if [ $stage -le 1 ]; then
 
     echo 'Computing posteriors from the DNN'
 
-    steps/nnet3/compute_output.sh --cmd run.pl --frame_subsampling_factor 1 --nj $nj \
+    steps/nnet3/compute_output.sh --cmd run.pl --nj $nj \
 	--online-ivector-dir $ivectors $expdir $model $expdir/probs
 fi
 
@@ -106,11 +106,11 @@ if [ $stage -le 5 ]; then
 
     python3 scripts/generate_data_for_eval.py  \
         --transcription-file $EPADB_ROOT/reference_transcriptions.txt  \
+        --reference-file $EPADB_ROOT \
         --gop-file $expdir/gop.txt \
         --phones-pure-file $expdir/align/phones-pure.txt \
-        --reference-file $EPADB_ROOT \
-        --output-dir $expdir/gop_with_labels \
-        --possible-prons-kaldi alignment_matrix.csv > $expdir/log/create_labels
+        --labels-dir $labels \
+        --output-dir $expdir/gop_with_labels > $expdir/log/create_labels
 
 fi
 

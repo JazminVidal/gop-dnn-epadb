@@ -47,6 +47,7 @@ If you are only looking for the EpaDB corpus, you can download it from this [lin
 
 3. [The EpaDB database]() downloaded.
 
+4. The Librispeech ASR acoustic model. Available at this [link].
 
 ## How to install
 
@@ -57,26 +58,16 @@ To install this repository, do the following steps:
 git clone https://github.com/JazminVidal/gop-dnn-epadb.git
 ```
 
-2. Download Librispeech ASR acoustic model from Kaldi and move it or link it inside the top directory of the repository:
-
-```
-wget https://kaldi-asr.org/models/13/0013_librispeech_s5.tar.gz
-tar -zxvf 0013_librispeech_s5.tar.gz
-```
-
-3. go to 0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp and change final.mdl name to final_original.mdl
+2. Download Librispeech ASR acoustic model and move it or link it inside the top directory of the repository:
 
 
-4. Download Librispeech ASR Xent acoustic model from the link in prerequisites and move it to 0013_librispeech_v1/exp/chain_cleaned/tdnn_1d_sp
-
-
-5. Install the requirements:
+3. Install the requirements:
 
 ```
 pip install -r requirements.txt
 ```
 
-6. Set the following lines in the file path.sh inside the repository's top directory:
+4. Set the following lines in the file path.sh inside the repository's top directory:
 
 Path to Epa-DB should be an absolute path.
 
@@ -102,7 +93,7 @@ export MODEL_ROOT=path/to/where/final.mdl/is
 ```
 
 to create the necessary directories and files. This script calls 02_data_preparation.sh that creates soft links to wsj folders in Kaldi, downloads and extracts the acoustic and language models from kaldi web, computes mfcc's, extracts i-vectors and creates temporary folders from Epa-DB files and calls 03_compute.sh that 
-computes alignments and goodness of pronunciation scores and stores the results under the exp_epadb/test folder. Results include alignments, files with the posteriors from the DNN (in probs), and files with the final gop scores (in gop). The script computes labels for Epa-DB by comparing the manual annotations in annotations_1 to all the possible reference transcriptions in the trans_complete file, aligning the resulting labels to the gop scores. Results are stored under exp_epadb/test/gop_with_labels folder. Finally, the script generates a folder with ROC curves for each phone.
+computes alignments and goodness of pronunciation scores and stores the results under the exp_epadb/test folder. Results include alignments, files with the posteriors from the DNN (in probs), and files with the final gop scores (in gop). Results are stored under exp_epadb/test/gop_with_labels folder. Finally, the script generates a folder with ROC curves for each phone.
 
 
 
