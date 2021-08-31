@@ -4,15 +4,16 @@ This repository has the tools to run a Kaldi-based GOP-DNN algorithm on Epa-DB, 
 
 If you use this code or the Epa-DB database, please cite the following paper:
 
-*J. Vidal, L. Ferrer, L. Brambilla, "EpaDB: a database for the development of pronunciation assessment systems", [isca-speech](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html)*
+*Vidal, J., Bonomi, C., Sancinetti, M., Ferrer, L. (2021) Phone-Level Pronunciation Scoring for Spanish Speakers Learning English Using a GOP-DNN System. Proc. Interspeech 2021, 4423-4427, doi: 10.21437/Interspeech.2021-745", [isca-speech](https://www.isca-speech.org/archive/interspeech_2021/vidal21_interspeech.html)*
 
 ```
-@article{vidal2019epadb,
-  title={EpaDB: a database for development of pronunciation assessment systems},
-  author={Vidal, Jazmin and Ferrer, Luciana and Brambilla, Leonardo},
-  journal={Proc. Interspeech 2019},
-  pages={589--593},
-  year={2019}
+@inproceedings{vidal21_interspeech,
+  author={Jazmín Vidal and Cyntia Bonomi and Marcelo Sancinetti and Luciana Ferrer},
+  title={{Phone-Level Pronunciation Scoring for Spanish Speakers Learning English Using a GOP-DNN System}},
+  year=2021,
+  booktitle={Proc. Interspeech 2021},
+  pages={4423--4427},
+  doi={10.21437/Interspeech.2021-745}
 }
 ```
 
@@ -37,7 +38,7 @@ All recordings are annotated at phone level by expert raters.
 
 For more information on the database, please refer to the [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html). 
 
-If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/1sk8mw2I86MitCRfIEm5kwn5hopmMmSIb/view?usp=sharing).
+If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/1sk8mw2I86MitCRfIEm5kwn5hopmMmSIb/view?usp=sharing) or this repository: https://github.com/JazminVidal/EpaDB
 
 ## Prerequisites
 
