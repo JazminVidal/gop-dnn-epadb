@@ -238,7 +238,7 @@ if __name__ == '__main__':
     output_tmp  = []
 
     trans_dict_complete, trans_dict_clean_complete, sent_dict_complete = generate_dict_from_transcripctions(args.transcriptions)
-    generate_trans_SAE(args.transcriptions)
+    #generate_trans_SAE(args.transcriptions)
     #trans_dict, trans_dict_clean, sent_dict = generate_dict_from_transcripctions('transcriptionsSAE.txt')
 
     phone_pure_dict = phones2dic(args.phones_pure_path)
