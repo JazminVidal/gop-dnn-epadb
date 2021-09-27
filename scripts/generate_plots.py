@@ -19,12 +19,12 @@ def mkdirs(newdir):
 def plot(scores, output_dir):
 
     # list of phones in order
-    phones = sorted(scores.phone.unique())
+    phones = sorted(scores.phone_automatic.unique())
 
     for phone in phones:
 
-        pos = scores[(scores.phone == phone) & (scores.label == 1)]
-        neg = scores[(scores.phone == phone) & (scores.label == 0)]
+        pos = scores[(scores.phone_automatic == phone) & (scores.label == 1)]
+        neg = scores[(scores.phone_automatic == phone) & (scores.label == 0)]
 
         pos_scores = list(pos.gop_scores)
         neg_scores = list(neg.gop_scores)
