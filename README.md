@@ -38,8 +38,7 @@ All recordings are annotated at phone level by expert raters.
 
 For more information on the database, please refer to the [publication](https://www.isca-speech.org/archive/Interspeech_2019/abstracts/1839.html). 
 
-If you are only looking for the EpaDB corpus, you can download it from this [link](https://drive.google.com/file/d/1sk8mw2I86MitCRfIEm5kwn5hopmMmSIb/view?usp=sharing) or this repository: https://github.com/JazminVidal/EpaDB
-
+If you are only looking for the EpaDB corpus, you can email jvidal@dc.uba.ar. 
 ## Prerequisites
 
 1. [Kaldi](http://kaldi-asr.org/) installed.
