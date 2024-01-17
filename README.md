@@ -2,7 +2,7 @@
 
 This repository has the tools to run a Kaldi-based GOP-DNN algorithm on Epa-DB, a database of non-native English speech by Spanish speakers from Argentina. It uses a TDNN-F chain model downloaded from Kaldi website and Kaldi's official GOP-DNN recipe.
 
-If you use this code or the Epa-DB database, please cite the following paper:
+If you use this code or the Epa-DB database, please cite the following paper: https://creativecommons.org/licenses/by-nc-nd/4.0/
 
 *Vidal, J., Bonomi, C., Sancinetti, M., Ferrer, L. (2021) Phone-Level Pronunciation Scoring for Spanish Speakers Learning English Using a GOP-DNN System. Proc. Interspeech 2021, 4423-4427, doi: 10.21437/Interspeech.2021-745", [isca-speech](https://www.isca-speech.org/archive/interspeech_2021/vidal21_interspeech.html)*
 
