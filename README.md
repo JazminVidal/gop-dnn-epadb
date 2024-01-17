@@ -16,7 +16,7 @@ If you use this code or the Epa-DB database, please cite the following paper:
   doi={10.21437/Interspeech.2021-745}
 }
 ```
-
+The code and the database are available only for research purposes under CC BY-NC-ND 4.0 DEED licence. You can read more about it here: 
 
 ## Table of Contents
 * [Introduction](#introduction)
